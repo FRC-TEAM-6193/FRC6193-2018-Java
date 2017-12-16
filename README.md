@@ -9,4 +9,5 @@ Code consists of:
 1. 2018 base Java code from Beta test. <b>Code is untested on RoboRIO</b>
 2. Driveline code that controls a arcade style drive with a XBOX controller.
 3. Automatic and Manual mode of shifting Hi and Low gears.
-4. Autonomous 
+4. Autonomous mode selection using 4 digital input switches. 
+5. PID modes for driveline in Rotate (Gyro) and Move (Encoder)
