@@ -11,3 +11,4 @@ Code consists of:
 3. Automatic and Manual mode of shifting Hi and Low gears.
 4. Autonomous mode selection using 4 digital input switches. 
 5. PID modes for driveline in Rotate (Gyro) and Move (Encoder)
+6. A start at vision processing. This is <b>unfinished</b>
