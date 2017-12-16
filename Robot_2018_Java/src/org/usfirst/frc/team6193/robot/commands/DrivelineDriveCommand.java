@@ -32,10 +32,10 @@ public class DrivelineDriveCommand extends Command {
     protected void initialize() {
     	Robot.driveline.initDrivelinePosition();
     	Robot.driveline.setDrivePID();
-    	DrivelineSubsystem.drivelinePIDMode = Enums.PID_MODE_DRIVE;
+    	Robot.driveline.drivelinePIDMode = Enums.PID_MODE_DRIVE;
     	
-    	DrivelineSubsystem.drivelineRequestedGear = m_gear;
-    	DrivelineSubsystem.drivelineShiftMode = Enums.SHIFT_MODE_MANUAL;
+    	Robot.driveline.drivelineRequestedGear = m_gear;
+    	Robot.driveline.drivelineShiftMode = Enums.SHIFT_MODE_MANUAL;
     	Robot.driveline.setGear(m_gear);
     	
     	Robot.driveline.setSetpoint(m_distanceSetpoint);

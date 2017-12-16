@@ -21,45 +21,45 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  */
 public class DrivelineSubsystem extends PIDSubsystem {
 
-	/**<b>Driveline Currently Active Gear as an integer</b><br>
-	 * 1 = LOW Gear<br>'
-	 * 2 = HIGH Gear 
-	 */
-	public static int drivelineCurrentGear = Enums.GEAR_HIGH;
+
 	/**<b>Driveline Requested Gear from manual or auto shift modes</b><br>
 	 * 1 = LOW Gear<br>
 	 * 2 = HIGH Gear 
 	 */
-	public static int drivelineRequestedGear = Enums.GEAR_LOW;
+	public int drivelineRequestedGear = Enums.GEAR_HIGH;
 	/** <b>Shift Mode as an Integer</b><br>
 	 * 0 = Manual shift mode with controller buttons for low and high<br>
 	 * 1 = Automatic shift mode
 	 */
-	public static int drivelineShiftMode = Enums.SHIFT_MODE_MANUAL; // 0 = Manual, 1 = Automatic
+	public int drivelineShiftMode = Enums.SHIFT_MODE_MANUAL; // 0 = Manual, 1 = Automatic
 	/** <b>PID Mode as an Integer</b><br>
 	 * 0 = Drive mode<br>
 	 * 1 = Rotate mode
 	 */
-	public static int drivelinePIDMode = Enums.PID_MODE_DRIVE;
+	public int drivelinePIDMode = Enums.PID_MODE_DRIVE;
 	public double drivelineAutoCommandRampInitTime = 0.0;
-	private double drivelineShiftTime = 0.0;
-	private double drivelineAutoInitAngle = 0.0;
-	private double drivelineAutoInitPosition = 0;
+	
+	/**<b>Driveline Currently Active Gear as an integer</b><br>
+	 * 1 = LOW Gear<br>'
+	 * 2 = HIGH Gear 
+	 */
+	private int m_drivelineCurrentGear = Enums.GEAR_HIGH;
+	
+	private double m_drivelineShiftTime = 0.0;
+	
+	private double m_drivelineAutoInitAngle = 0.0;
+	private double m_drivelineAutoInitPosition = 0;
+	
 	private CANTalon m_leftMotCtrl_1;
 	private CANTalon m_leftMotCtrl_2;
 	private CANTalon m_rightMotCtrl_1;
 	private CANTalon m_rightMotCtrl_2;
-	private DifferentialDrive robotDrive;
+
 	private DoubleSolenoid m_drivelineShiftSolenoid;
 	private ADXRS450_Gyro m_gyro;
 	
-	private double PID_DRIVE_P = 1;
-	private double PID_DRIVE_I = 0;
-	private double PID_DRIVE_D = 0;
-	
-	private double PID_ROTATE_P = 1;
-	private double PID_ROTATE_I = 0;
-	private double PID_ROTATE_D = 0;
+	private DifferentialDrive m_robotDrive;
+
 	
 	
     /**<b>DrivelineSubsystem Constuctor</b><br>
@@ -76,7 +76,7 @@ public class DrivelineSubsystem extends PIDSubsystem {
     	m_drivelineShiftSolenoid = new DoubleSolenoid(RobotMap.k_DrivelineShiftSolenoidForwardPort, RobotMap.k_DrivelineShiftSolenoidForwardPort + 2);
     	m_gyro = new ADXRS450_Gyro();
     	
-    	robotDrive = new DifferentialDrive(leftSpeedControllerGroup, rightSpeedControllerGroup);
+    	m_robotDrive = new DifferentialDrive(leftSpeedControllerGroup, rightSpeedControllerGroup);
 
     }
     /** <b>Select the new gear and command the solenoid</b><br>
@@ -85,19 +85,19 @@ public class DrivelineSubsystem extends PIDSubsystem {
      * kReverse = 2nd gear or High gear
      */
     public void selectGear(double move, double rotate) {
-    	if(drivelineShiftMode == 1 && Timer.getFPGATimestamp() > drivelineShiftTime + RobotMap.k_DrivelineShiftDelay) {
+    	if(drivelineShiftMode == Enums.SHIFT_MODE_AUTO && Timer.getFPGATimestamp() > m_drivelineShiftTime + RobotMap.k_DrivelineShiftDelay) {
     		drivelineRequestedGear = getNewAutoShiftGear(move, rotate);
     	}
     	
-    	if(drivelineCurrentGear != drivelineRequestedGear) {
+    	if(m_drivelineCurrentGear != drivelineRequestedGear) {
 			if(drivelineRequestedGear == 1) {
 				m_drivelineShiftSolenoid.set(Value.kForward);
-				drivelineCurrentGear = 1;
-				drivelineShiftTime = Timer.getFPGATimestamp();
+				m_drivelineCurrentGear = 1;
+				m_drivelineShiftTime = Timer.getFPGATimestamp();
 			}else {
 				m_drivelineShiftSolenoid.set(Value.kReverse);
-				drivelineCurrentGear = 2;
-				drivelineShiftTime = Timer.getFPGATimestamp();
+				m_drivelineCurrentGear = 2;
+				m_drivelineShiftTime = Timer.getFPGATimestamp();
 			}
     	}
     }
@@ -106,17 +106,20 @@ public class DrivelineSubsystem extends PIDSubsystem {
      * @param gear The gear that needs to be set immediately
      */
     public void setGear(int gear) {
-    	if(drivelineCurrentGear != drivelineRequestedGear) {
+    	if(m_drivelineCurrentGear != drivelineRequestedGear) {
 			if(drivelineRequestedGear == 1) {
 				m_drivelineShiftSolenoid.set(Value.kForward);
-				drivelineCurrentGear = 1;
-				drivelineShiftTime = Timer.getFPGATimestamp();
+				m_drivelineCurrentGear = 1;
+				m_drivelineShiftTime = Timer.getFPGATimestamp();
 			}else {
 				m_drivelineShiftSolenoid.set(Value.kReverse);
-				drivelineCurrentGear = 2;
-				drivelineShiftTime = Timer.getFPGATimestamp();
+				m_drivelineCurrentGear = 2;
+				m_drivelineShiftTime = Timer.getFPGATimestamp();
 			}
     	}
+    }
+    public int getCurrentGear() {
+    	return m_drivelineCurrentGear;
     }
     /**<b>getNewAutoShiftGear(double move, double rotate)</b><br>
      * 
@@ -137,10 +140,11 @@ public class DrivelineSubsystem extends PIDSubsystem {
     }
     /** <b>double getDrivelineSpeed()</b><br>
      * 
-     * @return The speed of the driveline in inch/sec
+     * TODO: This needs calibration and scale factor
+     * @return The speed of the driveline in RPM
      */
     private double getDrivelineSpeed() {
-    	return (m_leftMotCtrl_1.getEncVelocity() - m_rightMotCtrl_1.getEncVelocity())/2.0;
+    	return ((m_leftMotCtrl_1.getEncVelocity() - m_rightMotCtrl_1.getEncVelocity())/2.0);
     }
     /** <b>double getDrivelinePosition()</b><br>
      * This will return the current position of the robot in inches.<br>
@@ -156,14 +160,14 @@ public class DrivelineSubsystem extends PIDSubsystem {
      * 
      */
     public void initDrivelinePosition() {
-    	drivelineAutoInitPosition = getDrivelinePosition();
+    	m_drivelineAutoInitPosition = getDrivelinePosition();
     }
     /**
      * receives position of driveline on robot
      * @return
      */
     public double getDrivelinePositionFromInitialization() {
-    	return getDrivelinePosition() - drivelineAutoInitPosition;
+    	return getDrivelinePosition() - m_drivelineAutoInitPosition;
     }
     /**
      * shows the angle at which the robot is facing
@@ -176,14 +180,14 @@ public class DrivelineSubsystem extends PIDSubsystem {
      * Sets the offset angle for further calls of getDrivelineAngleFromInitialization()
      */
     public void initDrivelineAngle() {
-    	drivelineAutoInitAngle = m_gyro.getAngle();
+    	m_drivelineAutoInitAngle = m_gyro.getAngle();
     }
     /**
      * receive angle of which the robot is facing
      * @return
      */
     public double getDrivelineAngleFromInitialization() {
-    	return m_gyro.getAngle() - drivelineAutoInitAngle;
+    	return m_gyro.getAngle() - m_drivelineAutoInitAngle;
     }
     /**
      * This is used by autonomous/PID commands. The gear is set in the initialize of the command.
@@ -203,7 +207,7 @@ public class DrivelineSubsystem extends PIDSubsystem {
     	if(Math.abs(move) > 0.0) {
     		rotate = getDrivelineAngleFromInitialization() * RobotMap.k_Driveline_AutoAngleCompensationFactor;
     	}
-    	robotDrive.arcadeDrive(move, rotate);
+    	m_robotDrive.arcadeDrive(move, rotate);
     }
     /**moves the robot and connects the driveline to the joystick
      * 
@@ -212,7 +216,7 @@ public class DrivelineSubsystem extends PIDSubsystem {
     	double move = OI.joystickXBOX.getRawAxis(2) - OI.joystickXBOX.getRawAxis(3);
     	double rotate = OI.joystickXBOX.getX();
     	selectGear(move,rotate);
-    	robotDrive.arcadeDrive(move, rotate);
+    	m_robotDrive.arcadeDrive(move, rotate);
    		//robotDrive.curvatureDrive(move, rotate, true);
     }
     /**
@@ -220,13 +224,13 @@ public class DrivelineSubsystem extends PIDSubsystem {
      */
 
     public void setRotatePID() {
-    	getPIDController().setPID(PID_ROTATE_P, PID_ROTATE_I, PID_ROTATE_D);
+    	getPIDController().setPID(RobotMap.k_Driveline_PID_ROTATE_P, RobotMap.k_Driveline_PID_ROTATE_I, RobotMap.k_Driveline_PID_ROTATE_D);
     }
     /**
      * Moves the robot according to the position of the controller trigger
      */
     public void setDrivePID() {
-    	getPIDController().setPID(PID_DRIVE_P, PID_DRIVE_I, PID_DRIVE_D);
+    	getPIDController().setPID(RobotMap.k_Driveline_PID_DRIVE_P, RobotMap.k_Driveline_PID_DRIVE_I, RobotMap.k_Driveline_PID_DRIVE_D);
     }
     /**
      * sets the numbers for the PID to move forward or backward

@@ -22,10 +22,10 @@ public class DrivelineRotateCameraCommand extends Command {
     protected void initialize() {
     	Robot.driveline.initDrivelineAngle();
     	Robot.driveline.setRotatePID();
-    	DrivelineSubsystem.drivelinePIDMode = 1;
+    	Robot.driveline.drivelinePIDMode = 1;
     	
-    	DrivelineSubsystem.drivelineRequestedGear = 1;
-    	DrivelineSubsystem.drivelineShiftMode = 0;
+    	Robot.driveline.drivelineRequestedGear = 1;
+    	Robot.driveline.drivelineShiftMode = 0;
     	Robot.driveline.setGear(0);
 
     	Robot.driveline.setSetpoint(m_angle);

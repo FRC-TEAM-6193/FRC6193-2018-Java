@@ -30,7 +30,7 @@ public class DrivelineRotateCommand extends Command {
     	
     	Robot.driveline.initDrivelineAngle();
     	Robot.driveline.setRotatePID();
-    	DrivelineSubsystem.drivelinePIDMode = 1;
+    	Robot.driveline.drivelinePIDMode = 1;
     	
     	Robot.driveline.setSetpoint(m_angle);
     	Robot.driveline.getPIDController().setToleranceBuffer(16); // 16 x 0.02 = 0.32 seconds 

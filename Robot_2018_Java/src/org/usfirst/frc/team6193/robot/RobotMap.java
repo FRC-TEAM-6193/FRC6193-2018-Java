@@ -31,8 +31,18 @@ public class RobotMap {
 	public static final double k_DrivelineAutoShiftUpSpeed = 5000;
 	public static final double k_Driveline_InchPerCnt = 0.01;
 	public static final double k_DrivelineShiftDelay = 0.5;
-	// END Driveline calibrations
 	public static final double k_Driveline_AutoAngleCompensationFactor = -0.05;
+	
+	public static double k_Driveline_PID_DRIVE_P = 1;
+	public static double k_Driveline_PID_DRIVE_I = 0;
+	public static double k_Driveline_PID_DRIVE_D = 0;
+	
+	public static double k_Driveline_PID_ROTATE_P = 1;
+	public static double k_Driveline_PID_ROTATE_I = 0;
+	public static double k_Driveline_PID_ROTATE_D = 0;
+	// END Driveline calibrations
+
+
 	
 
 
