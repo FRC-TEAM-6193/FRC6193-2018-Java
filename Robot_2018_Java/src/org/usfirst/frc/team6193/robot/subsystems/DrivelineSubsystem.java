@@ -16,8 +16,11 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-/**
- *
+/** <b>Driveline Subsystem</b><br>
+ * Functionality:<br>
+ * 1. Controls 4 CANTalons in Arcade style driving.<br>
+ * 2. Uses dual speed gearboxs with automatic shifting or manual shifting<br>
+ * 3. Inherits from PIDSubsystems and allows for PID control in Angle and Drive modes<br>
  */
 public class DrivelineSubsystem extends PIDSubsystem {
 
@@ -61,9 +64,7 @@ public class DrivelineSubsystem extends PIDSubsystem {
 	private DifferentialDrive m_robotDrive;
 
 	
-	
-    /**<b>DrivelineSubsystem Constuctor</b><br>
-     * The DrivelineSubsystem is responsible for containing all objects and methods for moving the robot.
+    /**<b>DrivelineSubsystem Constuctor</b><br>moving the robot.
      */
     public DrivelineSubsystem() {
     	super(1,0,0);
@@ -71,6 +72,7 @@ public class DrivelineSubsystem extends PIDSubsystem {
     	m_leftMotCtrl_2 = new CANTalon(RobotMap.k_DrivelineLeftMotCtrl_2_CANID);
     	m_rightMotCtrl_1 = new CANTalon(RobotMap.k_DrivelineRightMotCtrl_1_CANID);
     	m_rightMotCtrl_2 = new CANTalon(RobotMap.k_DrivelineRightMotCtrl_2_CANID);
+    	// CANTalon libraries between WPILIB and CTRE are currently wrong. Must wait til kick off for the to be resolved. Lets hope the get it right.
     	SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(m_leftMotCtrl_1, m_leftMotCtrl_2);
     	SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(m_rightMotCtrl_1, m_rightMotCtrl_2);
     	m_drivelineShiftSolenoid = new DoubleSolenoid(RobotMap.k_DrivelineShiftSolenoidForwardPort, RobotMap.k_DrivelineShiftSolenoidForwardPort + 2);

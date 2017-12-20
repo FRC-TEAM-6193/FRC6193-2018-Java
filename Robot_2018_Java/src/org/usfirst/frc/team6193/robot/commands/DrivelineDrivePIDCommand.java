@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DrivelineDriveCommand extends Command {
+public class DrivelineDrivePIDCommand extends Command {
 
 	private double m_distanceSetpoint;
 	private double m_percentTolerance;
@@ -21,7 +21,7 @@ public class DrivelineDriveCommand extends Command {
 	 * @param percentTolerance Percent tolerance of Distance for onTarget()
 	 * @param Gear to be set for this command
 	 */
-    public DrivelineDriveCommand(double distance, double percentTolerance, int gear) {
+    public DrivelineDrivePIDCommand(double distance, double percentTolerance, int gear) {
         m_distanceSetpoint = distance;
         m_percentTolerance = percentTolerance;
         m_gear = gear;

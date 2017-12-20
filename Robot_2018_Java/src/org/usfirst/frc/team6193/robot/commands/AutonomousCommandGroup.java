@@ -27,11 +27,11 @@ public class AutonomousCommandGroup extends CommandGroup {
     public void selectAutonomousCommandGroup() {
     	switch(getAutonomousIndex()) {
     	case 0:
-    		addSequential(new DrivelineDriveCommand(100, 5, 1),2.4);
+    		addSequential(new DrivelineDrivePIDCommand(100, 5, 1),2.4);
     		
     		break;
     	case 1:
-    		addSequential(new DrivelineRotateCommand(45.0, 5), 2.1);
+    		addSequential(new DrivelineRotatePIDCommand(45.0, 5), 2.1);
     		break;
     	}
     }

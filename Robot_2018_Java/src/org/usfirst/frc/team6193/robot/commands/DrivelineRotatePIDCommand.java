@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DrivelineRotateCommand extends Command {
+public class DrivelineRotatePIDCommand extends Command {
 
 	private double m_angle;
 	private double m_percentTolerance;
@@ -18,7 +18,7 @@ public class DrivelineRotateCommand extends Command {
 	 * @param angle The angle to rotate
 	 * @param percentTolerance Percent of angle for onTarget()
 	 */
-    public DrivelineRotateCommand(double angle, double percentTolerance) {
+    public DrivelineRotatePIDCommand(double angle, double percentTolerance) {
 
     	m_angle = angle;
     	m_percentTolerance = percentTolerance;
