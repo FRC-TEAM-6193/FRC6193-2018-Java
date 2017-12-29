@@ -5,8 +5,7 @@ import org.usfirst.frc.team6193.robot.Enums;
 import org.usfirst.frc.team6193.robot.OI;
 import org.usfirst.frc.team6193.robot.RobotMap;
 import org.usfirst.frc.team6193.robot.commands.DrivelineDefaultCommand;
-
-import com.ctre.CANTalon;
+import org.usfirst.frc.team6193.robot.lib.TalonSRX_CAN;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -53,10 +52,10 @@ public class DrivelineSubsystem extends PIDSubsystem {
 	private double m_drivelineAutoInitAngle = 0.0;
 	private double m_drivelineAutoInitPosition = 0;
 	
-	private CANTalon m_leftMotCtrl_1;
-	private CANTalon m_leftMotCtrl_2;
-	private CANTalon m_rightMotCtrl_1;
-	private CANTalon m_rightMotCtrl_2;
+	private TalonSRX_CAN m_leftMotCtrl_1;
+	private TalonSRX_CAN m_leftMotCtrl_2;
+	private TalonSRX_CAN m_rightMotCtrl_1;
+	private TalonSRX_CAN m_rightMotCtrl_2;
 
 	private DoubleSolenoid m_drivelineShiftSolenoid;
 	private ADXRS450_Gyro m_gyro;
@@ -68,10 +67,10 @@ public class DrivelineSubsystem extends PIDSubsystem {
      */
     public DrivelineSubsystem() {
     	super(1,0,0);
-    	m_leftMotCtrl_1 = new CANTalon(RobotMap.k_DrivelineLeftMotCtrl_1_CANID);
-    	m_leftMotCtrl_2 = new CANTalon(RobotMap.k_DrivelineLeftMotCtrl_2_CANID);
-    	m_rightMotCtrl_1 = new CANTalon(RobotMap.k_DrivelineRightMotCtrl_1_CANID);
-    	m_rightMotCtrl_2 = new CANTalon(RobotMap.k_DrivelineRightMotCtrl_2_CANID);
+    	m_leftMotCtrl_1 = new TalonSRX_CAN(RobotMap.k_DrivelineLeftMotCtrl_1_CANID);
+    	m_leftMotCtrl_2 = new TalonSRX_CAN(RobotMap.k_DrivelineLeftMotCtrl_2_CANID);
+    	m_rightMotCtrl_1 = new TalonSRX_CAN(RobotMap.k_DrivelineRightMotCtrl_1_CANID);
+    	m_rightMotCtrl_2 = new TalonSRX_CAN(RobotMap.k_DrivelineRightMotCtrl_2_CANID);
     	// CANTalon libraries between WPILIB and CTRE are currently wrong. Must wait til kick off for the to be resolved. Lets hope the get it right.
     	SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(m_leftMotCtrl_1, m_leftMotCtrl_2);
     	SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(m_rightMotCtrl_1, m_rightMotCtrl_2);

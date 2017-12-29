@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6193.robot.commands.AutonomousCommandGroup;
-import org.usfirst.frc.team6193.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team6193.robot.subsystems.DrivelineSubsystem;
 
 /**
@@ -33,7 +32,6 @@ public class Robot extends TimedRobot {
 	public static DigitalInput DIO_4;
 	
 	public static DrivelineSubsystem driveline;
-	public static ArmSubsystem arm;
 	public static OI oi;
 
 	private AutonomousCommandGroup m_acg;
