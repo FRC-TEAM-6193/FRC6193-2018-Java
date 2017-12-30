@@ -12,3 +12,4 @@ Code consists of:
 4. Autonomous mode selection using 4 digital input switches. 
 5. PID modes for driveline in Rotate (Gyro) and Move (Encoder)
 6. A start at vision processing. This is <b>unfinished</b>
+7. Autonomous mode driveline stopping distance algorithm
