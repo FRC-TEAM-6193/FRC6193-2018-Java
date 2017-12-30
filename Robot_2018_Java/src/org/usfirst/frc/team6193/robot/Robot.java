@@ -76,6 +76,7 @@ public class Robot extends TimedRobot {
 	}
 	@Override
 	public void autonomousInit() {
+		setPeriod(0.01);
 		m_acg = new AutonomousCommandGroup();
 		m_acg.selectAutonomousCommandGroup();
 		m_acg.start();
@@ -88,7 +89,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+		
 		m_acg.cancel();
+		setPeriod(0.02);
 	}
 
 	@Override

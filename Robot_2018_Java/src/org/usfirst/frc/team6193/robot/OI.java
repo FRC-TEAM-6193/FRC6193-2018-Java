@@ -24,28 +24,12 @@ public class OI {
     public static Button buttonDrivelineManualLowGear = new JoystickButton(joystickXBOX, RobotMap.k_DrivelineGear_LOW_ManualButtonNumber);
     public static Button buttonDrivelineManualHighGear = new JoystickButton(joystickXBOX, RobotMap.k_DrivelineGear_HIGH_ManualButtonNumber);
     public static Button buttonDrivelineAutoShiftSelect = new JoystickButton(joystickXBOX, RobotMap.k_DrivelineGear_AutoButtonNumber);
-	// There are a few additional built in buttons you can use. Additionally,
-	// by subclassing Button you can create custom triggers and bind those to
-	// commands the same as any other Button.
 
-	//// TRIGGERING COMMANDS WITH BUTTONS
-	// Once you have a button, it's trivial to bind it to a button in one of
-	// three ways:
     OI(){
     	buttonDrivelineManualLowGear.whenPressed(new DrivelineGearManualShiftCommand(1));
     	buttonDrivelineManualHighGear.whenPressed(new DrivelineGearManualShiftCommand(2));
     	buttonDrivelineAutoShiftSelect.whenPressed(new DrivelineGearAutoShiftCommand());
     	
     }
-	// Start the command when the button is pressed and let it run the command
-	// until it is finished as determined by it's isFinished method.
-	 
 
-	// Run the command while the button is being held down and interrupt it once
-	// the button is released.
-	// button.whileHeld(new ExampleCommand());
-
-	// Start the command when the button is released and let it run the command
-	// until it is finished as determined by it's isFinished method.
-	// button.whenReleased(new ExampleCommand());
 }

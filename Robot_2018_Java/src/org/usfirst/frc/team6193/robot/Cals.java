@@ -4,7 +4,7 @@ public class Cals {
 	public static double[] k_StoppingAngle_Y_Inch = {1,2,3,4,5,6,7,8,9,10};
 	public static double[] k_StoppingDistance_Y_Inch = {1,2,3,4,5,6,7,8,9,10};
 	
-	public static double[] k_StoppingPower_X_Uls = {0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};
+	public static double[] k_StoppingPercentVoltage_X_Uls = {0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};
 	/*
 	 * Stopping distance comments:
 	 * Instead of using PID, 

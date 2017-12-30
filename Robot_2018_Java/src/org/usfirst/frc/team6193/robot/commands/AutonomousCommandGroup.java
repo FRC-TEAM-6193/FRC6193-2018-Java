@@ -31,7 +31,9 @@ public class AutonomousCommandGroup extends CommandGroup {
     		
     		break;
     	case 1:
-    		addSequential(new DrivelineRotatePIDCommand(45.0, 5), 2.1);
+    		
+    		addSequential(new DrivelineDriveSDCommand(100, 0.5, 2),2);
+    		
     		break;
     	}
     }

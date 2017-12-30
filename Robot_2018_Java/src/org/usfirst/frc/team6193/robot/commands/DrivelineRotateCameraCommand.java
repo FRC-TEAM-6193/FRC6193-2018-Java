@@ -26,7 +26,7 @@ public class DrivelineRotateCameraCommand extends Command {
     	
     	Robot.driveline.drivelineRequestedGear = 1;
     	Robot.driveline.drivelineShiftMode = 0;
-    	Robot.driveline.setGear(0);
+    	Robot.driveline.setGear();
 
     	Robot.driveline.setSetpoint(m_angle);
     	Robot.driveline.getPIDController().setToleranceBuffer(16); // 16 x 0.02 = 0.32 seconds 

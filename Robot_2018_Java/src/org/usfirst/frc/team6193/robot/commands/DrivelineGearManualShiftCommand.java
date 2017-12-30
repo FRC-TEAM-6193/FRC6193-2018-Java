@@ -21,7 +21,7 @@ public class DrivelineGearManualShiftCommand extends Command {
     protected void initialize() {
     	Robot.driveline.drivelineShiftMode = 0;
     	Robot.driveline.drivelineRequestedGear = m_selectedGear;
-    	Robot.driveline.setGear(m_selectedGear);
+    	Robot.driveline.setGear();
     }
 
     // Called repeatedly when this Command is scheduled to run

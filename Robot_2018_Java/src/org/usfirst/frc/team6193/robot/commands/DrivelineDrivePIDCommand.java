@@ -36,7 +36,8 @@ public class DrivelineDrivePIDCommand extends Command {
     	
     	Robot.driveline.drivelineRequestedGear = m_gear;
     	Robot.driveline.drivelineShiftMode = Enums.SHIFT_MODE_MANUAL;
-    	Robot.driveline.setGear(m_gear);
+    	
+    	Robot.driveline.setGear();
     	
     	Robot.driveline.setSetpoint(m_distanceSetpoint);
     	Robot.driveline.getPIDController().setToleranceBuffer(16); // 16 x 0.02 = 0.32 seconds 

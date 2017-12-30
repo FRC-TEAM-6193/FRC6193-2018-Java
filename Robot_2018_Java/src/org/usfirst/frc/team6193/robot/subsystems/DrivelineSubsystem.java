@@ -46,9 +46,7 @@ public class DrivelineSubsystem extends PIDSubsystem {
 	 * 2 = HIGH Gear 
 	 */
 	private int m_drivelineCurrentGear = Enums.GEAR_HIGH;
-	
 	private double m_drivelineShiftTime = 0.0;
-	
 	private double m_drivelineAutoInitAngle = 0.0;
 	private double m_drivelineAutoInitPosition = 0;
 	
@@ -63,7 +61,7 @@ public class DrivelineSubsystem extends PIDSubsystem {
 	private DifferentialDrive m_robotDrive;
 
 	
-    /**<b>DrivelineSubsystem Constuctor</b><br>moving the robot.
+    /**<b>DrivelineSubsystem Constructor</b><br>moving the robot.
      */
     public DrivelineSubsystem() {
     	super(1,0,0);
@@ -71,7 +69,7 @@ public class DrivelineSubsystem extends PIDSubsystem {
     	m_leftMotCtrl_2 = new TalonSRX_CAN(RobotMap.k_DrivelineLeftMotCtrl_2_CANID);
     	m_rightMotCtrl_1 = new TalonSRX_CAN(RobotMap.k_DrivelineRightMotCtrl_1_CANID);
     	m_rightMotCtrl_2 = new TalonSRX_CAN(RobotMap.k_DrivelineRightMotCtrl_2_CANID);
-    	// CANTalon libraries between WPILIB and CTRE are currently wrong. Must wait til kick off for the to be resolved. Lets hope the get it right.
+    	
     	SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(m_leftMotCtrl_1, m_leftMotCtrl_2);
     	SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(m_rightMotCtrl_1, m_rightMotCtrl_2);
     	m_drivelineShiftSolenoid = new DoubleSolenoid(RobotMap.k_DrivelineShiftSolenoidForwardPort, RobotMap.k_DrivelineShiftSolenoidForwardPort + 2);
@@ -89,36 +87,25 @@ public class DrivelineSubsystem extends PIDSubsystem {
     	if(drivelineShiftMode == Enums.SHIFT_MODE_AUTO && Timer.getFPGATimestamp() > m_drivelineShiftTime + RobotMap.k_DrivelineShiftDelay) {
     		drivelineRequestedGear = getNewAutoShiftGear(move, rotate);
     	}
-    	
-    	if(m_drivelineCurrentGear != drivelineRequestedGear) {
-			if(drivelineRequestedGear == 1) {
-				m_drivelineShiftSolenoid.set(Value.kForward);
-				m_drivelineCurrentGear = 1;
-				m_drivelineShiftTime = Timer.getFPGATimestamp();
-			}else {
-				m_drivelineShiftSolenoid.set(Value.kReverse);
-				m_drivelineCurrentGear = 2;
-				m_drivelineShiftTime = Timer.getFPGATimestamp();
-			}
-    	}
+    	setGear();
+
     }
-    /** <b>setGear(int gear) </b><br>
-     * 
-     * @param gear The gear that needs to be set immediately
+    /**
+     * Set the gear to the drivelineRequestedGear variable
      */
-    public void setGear(int gear) {
+    public void setGear() {
     	if(m_drivelineCurrentGear != drivelineRequestedGear) {
 			if(drivelineRequestedGear == 1) {
 				m_drivelineShiftSolenoid.set(Value.kForward);
 				m_drivelineCurrentGear = 1;
-				m_drivelineShiftTime = Timer.getFPGATimestamp();
 			}else {
 				m_drivelineShiftSolenoid.set(Value.kReverse);
 				m_drivelineCurrentGear = 2;
-				m_drivelineShiftTime = Timer.getFPGATimestamp();
 			}
+			m_drivelineShiftTime = Timer.getFPGATimestamp();
     	}
     }
+
     public int getCurrentGear() {
     	return m_drivelineCurrentGear;
     }
@@ -154,7 +141,12 @@ public class DrivelineSubsystem extends PIDSubsystem {
      * @return The position of the driveline in inch
      */
     private double getDrivelinePosition() {
-    	return m_leftMotCtrl_1.getEncPosition() * RobotMap.k_Driveline_InchPerCnt;
+    	if(m_drivelineCurrentGear == 1) {
+    		return m_leftMotCtrl_1.getEncPosition() * RobotMap.k_Driveline1stGear_InchPerCnt;
+    	}else {
+    		return m_leftMotCtrl_1.getEncPosition() * RobotMap.k_Driveline2ndGear_InchPerCnt;
+    	}
+    	
     }
     /**<b>initDrivelinePosition()</b><br>
      * shows format of driveline position on robot
