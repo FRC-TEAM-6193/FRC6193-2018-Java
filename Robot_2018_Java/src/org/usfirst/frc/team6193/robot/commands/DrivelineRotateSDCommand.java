@@ -37,7 +37,7 @@ public class DrivelineRotateSDCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveline.Drive(0.0, m_percentVoltage);
+    	Robot.driveline.driveAutonomous(0.0, m_percentVoltage);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -52,7 +52,7 @@ public class DrivelineRotateSDCommand extends Command {
     	if(Math.abs(currentAngle) >= m_angle - stoppingDistance) {
     		SmartDashboard.putNumber("RobotAngleBegin", currentAngle);
     		m_percentVoltage = 0.0;
-    		Robot.driveline.Drive(0.0, 0.0);
+    		Robot.driveline.driveAutonomous(0.0, 0.0);
     		return true;
     	}
         return false;
@@ -60,7 +60,7 @@ public class DrivelineRotateSDCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.driveline.Drive(0.0, 0.0);
+    	Robot.driveline.driveAutonomous(0.0, 0.0);
     }
 
     // Called when another command which requires one or more of the same

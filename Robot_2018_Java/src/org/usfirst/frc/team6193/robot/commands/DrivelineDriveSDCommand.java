@@ -59,7 +59,7 @@ public class DrivelineDriveSDCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveline.Drive(m_percentVoltage, 0.0);
+    	Robot.driveline.driveAutonomous(m_percentVoltage, 0.0);
     }
 
     /**
@@ -77,7 +77,7 @@ public class DrivelineDriveSDCommand extends Command {
     	if(Math.abs(currentPosition) >= m_distance - stoppingDistance) {
     		SmartDashboard.putNumber("RobotDistanceBegin", currentPosition);
     		m_percentVoltage = 0.0;
-    		Robot.driveline.Drive(0.0, 0.0);
+    		Robot.driveline.driveAutonomous(0.0, 0.0);
     		return true;
     	}
         return false;
@@ -85,7 +85,7 @@ public class DrivelineDriveSDCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.driveline.Drive(0.0, 0.0);
+    	Robot.driveline.driveAutonomous(0.0, 0.0);
     }
 
     // Called when another command which requires one or more of the same
