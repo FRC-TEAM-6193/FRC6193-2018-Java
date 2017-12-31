@@ -5,6 +5,7 @@ import org.usfirst.frc.team6193.robot.Enums;
 import org.usfirst.frc.team6193.robot.Robot;
 import org.usfirst.frc.team6193.robot.lib.Interpolation;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -53,6 +54,7 @@ public class DrivelineDriveSDCommand extends Command {
     	Robot.driveline.drivelineShiftMode = Enums.SHIFT_MODE_MANUAL;
     	Robot.driveline.setGear();
     	this.setInterruptible(true);
+    	Robot.driveline.drivelineAutoCommandRampInitTime = Timer.getFPGATimestamp();
     }
 
     // Called repeatedly when this Command is scheduled to run

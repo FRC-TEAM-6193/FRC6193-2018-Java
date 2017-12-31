@@ -26,21 +26,8 @@ public class RobotMap {
 	public static final int k_DrivelineGear_AutoButtonNumber = 2;
 
 	public static final int k_DrivelineShiftSolenoidForwardPort = 1;
-	public static final double k_DrivelineAutoShiftDownSpeed = 50;
-	public static final double k_DrivelineAutoShiftRotateLimit = 0.05;
-	public static final double k_DrivelineAutoShiftUpSpeed = 5000;
-	public static final double k_Driveline1stGear_InchPerCnt = 1.0;
-	public static final double k_Driveline2ndGear_InchPerCnt = 1.0;
-	public static final double k_DrivelineShiftDelay = 0.5;
-	public static final double k_Driveline_AutoAngleCompensationFactor = -0.05;
 	
-	public static double k_Driveline_PID_DRIVE_P = 1;
-	public static double k_Driveline_PID_DRIVE_I = 0;
-	public static double k_Driveline_PID_DRIVE_D = 0;
-	
-	public static double k_Driveline_PID_ROTATE_P = 1;
-	public static double k_Driveline_PID_ROTATE_I = 0;
-	public static double k_Driveline_PID_ROTATE_D = 0;
+
 	// END Driveline calibrations
 
 

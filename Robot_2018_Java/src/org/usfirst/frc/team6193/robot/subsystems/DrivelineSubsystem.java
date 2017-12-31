@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6193.robot.subsystems;
 
 
+import org.usfirst.frc.team6193.robot.Cals;
 import org.usfirst.frc.team6193.robot.Enums;
 import org.usfirst.frc.team6193.robot.OI;
 import org.usfirst.frc.team6193.robot.RobotMap;
@@ -84,7 +85,7 @@ public class DrivelineSubsystem extends PIDSubsystem {
      * kReverse = 2nd gear or High gear
      */
     public void selectGear(double move, double rotate) {
-    	if(drivelineShiftMode == Enums.SHIFT_MODE_AUTO && Timer.getFPGATimestamp() > m_drivelineShiftTime + RobotMap.k_DrivelineShiftDelay) {
+    	if(drivelineShiftMode == Enums.SHIFT_MODE_AUTO && Timer.getFPGATimestamp() > m_drivelineShiftTime + Cals.k_DrivelineShiftDelay) {
     		drivelineRequestedGear = getNewAutoShiftGear(move, rotate);
     	}
     	setGear();
@@ -119,9 +120,9 @@ public class DrivelineSubsystem extends PIDSubsystem {
     	
     	double speed = getDrivelineSpeed();
     	
-    	if(speed < RobotMap.k_DrivelineAutoShiftDownSpeed) {
+    	if(speed < Cals.k_DrivelineAutoShiftDownSpeed) {
     		return 1;
-    	}else if(speed > RobotMap.k_DrivelineAutoShiftUpSpeed && Math.abs(rotate) < RobotMap.k_DrivelineAutoShiftRotateLimit) {
+    	}else if(speed > Cals.k_DrivelineAutoShiftUpSpeed && Math.abs(rotate) < Cals.k_DrivelineAutoShiftRotateLimit) {
     		return 2;
     	}
     	return drivelineRequestedGear;
@@ -142,9 +143,9 @@ public class DrivelineSubsystem extends PIDSubsystem {
      */
     public double getDrivelinePosition() {
     	if(m_drivelineCurrentGear == 1) {
-    		return m_leftMotCtrl_1.getEncPosition() * RobotMap.k_Driveline1stGear_InchPerCnt;
+    		return m_leftMotCtrl_1.getEncPosition() * Cals.k_Driveline1stGear_InchPerCnt;
     	}else {
-    		return m_leftMotCtrl_1.getEncPosition() * RobotMap.k_Driveline2ndGear_InchPerCnt;
+    		return m_leftMotCtrl_1.getEncPosition() * Cals.k_Driveline2ndGear_InchPerCnt;
     	}
     	
     }
@@ -192,13 +193,15 @@ public class DrivelineSubsystem extends PIDSubsystem {
      * @param rotate
      */
     public void Drive(double move, double rotate) {
-    	// A linear ramp for 0.5 seconds to reduce the initial shock of the PID max command
-    	if(Math.abs(move) > 0.0 && Timer.getFPGATimestamp() < drivelineAutoCommandRampInitTime + 0.5) {
-    		move = move * (Timer.getFPGATimestamp()-drivelineAutoCommandRampInitTime) *2.0;
+    	// A linear ramp for 0.5 seconds to reduce the initial shock of the PID or SD max command
+    	if((Math.abs(move) > 0.0  || Math.abs(rotate) > 0.0) && Timer.getFPGATimestamp() < drivelineAutoCommandRampInitTime + Cals.k_DrivelineAutoRampTime_Sec) {
+    		move = move * (Timer.getFPGATimestamp()-drivelineAutoCommandRampInitTime) * 1/Cals.k_DrivelineAutoRampTime_Sec;
+    		rotate = rotate * (Timer.getFPGATimestamp()-drivelineAutoCommandRampInitTime) * 1/Cals.k_DrivelineAutoRampTime_Sec;
     	}
     	// A compensation for mechanical drift during autonomous drive commands
+    	// Amazingly this actually works fairly well without oscillation
     	if(Math.abs(move) > 0.0) {
-    		rotate = getDrivelineAngleFromInitialization() * RobotMap.k_Driveline_AutoAngleCompensationFactor;
+    		rotate = getDrivelineAngleFromInitialization() * Cals.k_DrivelineAutoAngleCompensationFactor;
     	}
     	m_robotDrive.arcadeDrive(move, rotate);
     }
@@ -217,13 +220,13 @@ public class DrivelineSubsystem extends PIDSubsystem {
      */
 
     public void setRotatePID() {
-    	getPIDController().setPID(RobotMap.k_Driveline_PID_ROTATE_P, RobotMap.k_Driveline_PID_ROTATE_I, RobotMap.k_Driveline_PID_ROTATE_D);
+    	getPIDController().setPID(Cals.k_Driveline_PID_ROTATE_P, Cals.k_Driveline_PID_ROTATE_I, Cals.k_Driveline_PID_ROTATE_D);
     }
     /**
      * Moves the robot according to the position of the controller trigger
      */
     public void setDrivePID() {
-    	getPIDController().setPID(RobotMap.k_Driveline_PID_DRIVE_P, RobotMap.k_Driveline_PID_DRIVE_I, RobotMap.k_Driveline_PID_DRIVE_D);
+    	getPIDController().setPID(Cals.k_Driveline_PID_DRIVE_P, Cals.k_Driveline_PID_DRIVE_I, Cals.k_Driveline_PID_DRIVE_D);
     }
     /**
      * sets the numbers for the PID to move forward or backward

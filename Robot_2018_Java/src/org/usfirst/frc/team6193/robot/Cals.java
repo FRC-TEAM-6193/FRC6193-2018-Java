@@ -1,11 +1,30 @@
 package org.usfirst.frc.team6193.robot;
 
 public class Cals {
+	
 	public static double[] k_StoppingAngle1stGear_Y_Inch = {0,0,0,0,0,0,0,0,0,0};
 	public static double[] k_StoppingAngle2ndGear_Y_Inch = {0,0,0,0,0,0,0,0,0,0};
 	public static double[] k_StoppingDistance1stGear_Y_Inch = {0,0,0,0,0,0,0,0,0,0};
 	public static double[] k_StoppingDistance2ndGear_Y_Inch = {0,0,0,0,0,0,0,0,0,0};
 	public static double[] k_StoppingPercentVoltage_X_Uls = {0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};
+	
+	
+	public static double k_DrivelineAutoRampTime_Sec = 0.5;
+	public static final double k_DrivelineAutoShiftDownSpeed = 50;
+	public static final double k_DrivelineAutoShiftRotateLimit = 0.05;
+	public static final double k_DrivelineAutoShiftUpSpeed = 5000;
+	public static final double k_Driveline1stGear_InchPerCnt = 1.0;
+	public static final double k_Driveline2ndGear_InchPerCnt = 1.0;
+	public static final double k_DrivelineShiftDelay = 0.5;
+	public static final double k_DrivelineAutoAngleCompensationFactor = -0.05;
+	
+	public static double k_Driveline_PID_DRIVE_P = 1;
+	public static double k_Driveline_PID_DRIVE_I = 0;
+	public static double k_Driveline_PID_DRIVE_D = 0;
+	
+	public static double k_Driveline_PID_ROTATE_P = 1;
+	public static double k_Driveline_PID_ROTATE_I = 0;
+	public static double k_Driveline_PID_ROTATE_D = 0;
 	/*
 	 * Stopping distance comments:
 	 * Instead of using PID, 
