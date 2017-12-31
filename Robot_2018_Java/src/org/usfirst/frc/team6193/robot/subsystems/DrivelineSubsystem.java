@@ -140,7 +140,7 @@ public class DrivelineSubsystem extends PIDSubsystem {
      * 
      * @return The position of the driveline in inch
      */
-    private double getDrivelinePosition() {
+    public double getDrivelinePosition() {
     	if(m_drivelineCurrentGear == 1) {
     		return m_leftMotCtrl_1.getEncPosition() * RobotMap.k_Driveline1stGear_InchPerCnt;
     	}else {
@@ -149,14 +149,14 @@ public class DrivelineSubsystem extends PIDSubsystem {
     	
     }
     /**<b>initDrivelinePosition()</b><br>
-     * shows format of driveline position on robot
+     * Set a local vaiable to the current Driveline Position
      * 
      */
     public void initDrivelinePosition() {
     	m_drivelineAutoInitPosition = getDrivelinePosition();
     }
     /**
-     * receives position of driveline on robot
+     * Get the current Driveline position minus the initialized position.
      * @return
      */
     public double getDrivelinePositionFromInitialization() {

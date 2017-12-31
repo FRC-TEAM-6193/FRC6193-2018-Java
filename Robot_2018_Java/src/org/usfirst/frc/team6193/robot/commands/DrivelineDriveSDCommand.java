@@ -6,6 +6,7 @@ import org.usfirst.frc.team6193.robot.Robot;
 import org.usfirst.frc.team6193.robot.lib.Interpolation;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Stopping Distance Command for autonomous mode
@@ -64,9 +65,15 @@ public class DrivelineDriveSDCommand extends Command {
      * 
      */
     protected boolean isFinished() {
-    	double stoppingDistance = Interpolation.LnrIntrpn(Cals.k_StoppingPercentVoltage_X_Uls, Cals.k_StoppingDistance_Y_Inch, Math.abs(m_percentVoltage));
+    	double stoppingDistance = 0.0;
+    	if(m_gear == 1) {
+    		stoppingDistance = Interpolation.LnrIntrpn(Cals.k_StoppingPercentVoltage_X_Uls, Cals.k_StoppingDistance1stGear_Y_Inch, Math.abs(m_percentVoltage));
+    	}else {
+    		stoppingDistance = Interpolation.LnrIntrpn(Cals.k_StoppingPercentVoltage_X_Uls, Cals.k_StoppingDistance2ndGear_Y_Inch, Math.abs(m_percentVoltage));
+    	}
     	double currentPosition = Robot.driveline.getDrivelinePositionFromInitialization();
     	if(Math.abs(currentPosition) >= m_distance - stoppingDistance) {
+    		SmartDashboard.putNumber("RobotDistanceBegin", currentPosition);
     		m_percentVoltage = 0.0;
     		Robot.driveline.Drive(0.0, 0.0);
     		return true;
@@ -82,6 +89,7 @@ public class DrivelineDriveSDCommand extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     	this.cancel();
     
     }

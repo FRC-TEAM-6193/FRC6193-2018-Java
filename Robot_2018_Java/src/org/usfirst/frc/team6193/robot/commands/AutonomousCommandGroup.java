@@ -33,6 +33,8 @@ public class AutonomousCommandGroup extends CommandGroup {
     	case 1:
     		
     		addSequential(new DrivelineDriveSDCommand(100, 0.5, 2),2);
+    		addSequential(new DrivelineDelayCommand(0.25));
+    		
     		
     		break;
     	}

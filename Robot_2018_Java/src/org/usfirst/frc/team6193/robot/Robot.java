@@ -8,7 +8,6 @@
 package org.usfirst.frc.team6193.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -48,22 +47,24 @@ public class Robot extends TimedRobot {
 	}
 	@Override
 	public void robotPeriodic() {
-		double Drive_P = 1.0; 
-		double Drive_I = 0.0; 
-		double Drive_D = 0.0; 
-		double Rotate_P = 1.0; 
-		double Rotate_I = 0.0; 
-		double Rotate_D = 0.0; 
-		Drive_P = SmartDashboard.getNumber("Drive_P", 1.0);
-		Drive_I = SmartDashboard.getNumber("Drive_I", 0.0);
-		Drive_D = SmartDashboard.getNumber("Drive_D", 0.0);
-		Rotate_P = SmartDashboard.getNumber("Rotate_P", 1.0);
-		Rotate_I = SmartDashboard.getNumber("Rotate_I", 0.0);
-		Rotate_D = SmartDashboard.getNumber("Rotate_D", 0.0);
-		if(!RobotState.isAutonomous()) {
-			driveline.setDrivePID(Drive_P, Drive_I, Drive_D);
-			driveline.setRotatePID(Rotate_P,Rotate_I,Rotate_D);
-		}
+//		double Drive_P = 1.0; 
+//		double Drive_I = 0.0; 
+//		double Drive_D = 0.0; 
+//		double Rotate_P = 1.0; 
+//		double Rotate_I = 0.0; 
+//		double Rotate_D = 0.0; 
+//		Drive_P = SmartDashboard.getNumber("Drive_P", 1.0);
+//		Drive_I = SmartDashboard.getNumber("Drive_I", 0.0);
+//		Drive_D = SmartDashboard.getNumber("Drive_D", 0.0);
+//		Rotate_P = SmartDashboard.getNumber("Rotate_P", 1.0);
+//		Rotate_I = SmartDashboard.getNumber("Rotate_I", 0.0);
+//		Rotate_D = SmartDashboard.getNumber("Rotate_D", 0.0);
+//		if(!RobotState.isAutonomous()) {
+//			driveline.setDrivePID(Drive_P, Drive_I, Drive_D);
+//			driveline.setRotatePID(Rotate_P,Rotate_I,Rotate_D);
+//		}
+		SmartDashboard.putNumber("RobotPosition", driveline.getDrivelinePosition());
+		SmartDashboard.putNumber("RobotAngle", driveline.getDrivelineAngle());
 	}
 	@Override
 	public void disabledInit() {
@@ -101,6 +102,5 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void testPeriodic() {
-		LiveWindow.run();
 	}
 }

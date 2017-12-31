@@ -1,15 +1,16 @@
 package org.usfirst.frc.team6193.robot;
 
 public class Cals {
-	public static double[] k_StoppingAngle_Y_Inch = {1,2,3,4,5,6,7,8,9,10};
-	public static double[] k_StoppingDistance_Y_Inch = {1,2,3,4,5,6,7,8,9,10};
-	
+	public static double[] k_StoppingAngle1stGear_Y_Inch = {0,0,0,0,0,0,0,0,0,0};
+	public static double[] k_StoppingAngle2ndGear_Y_Inch = {0,0,0,0,0,0,0,0,0,0};
+	public static double[] k_StoppingDistance1stGear_Y_Inch = {0,0,0,0,0,0,0,0,0,0};
+	public static double[] k_StoppingDistance2ndGear_Y_Inch = {0,0,0,0,0,0,0,0,0,0};
 	public static double[] k_StoppingPercentVoltage_X_Uls = {0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};
 	/*
 	 * Stopping distance comments:
 	 * Instead of using PID, 
 	 * 1. Drive straight at a certain power setting -1 to 1.
-	 * 2. Calculate how long it takes to stop once power is removed.
+	 * 2. calibrate how long it takes to stop once power is removed.
 	 * 3. Remove that value from the distance to be traveled.
 	 * 4. 
 	 * 
@@ -19,6 +20,7 @@ public class Cals {
 	 *   13*12 = 156inch/sec
 	 *   156 * 0.02 = 3.12 inches
 	 *   Not bad. We would never run at full power. Usually around 50%
+	 *   We can set the loop rate to 10ms in autonomous mode
 	 *   
 	 *   How can this be calculated.
 	 *   1. Drive at a certain power 
