@@ -70,7 +70,7 @@ public class DrivelineSubsystem extends PIDSubsystem {
     	m_leftMotCtrl_2 = new TalonSRX_CAN(RobotMap.k_DrivelineLeftMotCtrl_2_CANID);
     	m_rightMotCtrl_1 = new TalonSRX_CAN(RobotMap.k_DrivelineRightMotCtrl_1_CANID);
     	m_rightMotCtrl_2 = new TalonSRX_CAN(RobotMap.k_DrivelineRightMotCtrl_2_CANID);
-    	
+    	m_leftMotCtrl_1.configEncoderCodesPerRev(250);
     	SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(m_leftMotCtrl_1, m_leftMotCtrl_2);
     	SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(m_rightMotCtrl_1, m_rightMotCtrl_2);
     	m_drivelineShiftSolenoid = new DoubleSolenoid(RobotMap.k_DrivelineShiftSolenoidForwardPort, RobotMap.k_DrivelineShiftSolenoidForwardPort + 2);
@@ -118,7 +118,7 @@ public class DrivelineSubsystem extends PIDSubsystem {
      */
     private int getNewAutoShiftGear(double move, double rotate) {
     	
-    	double speed = getDrivelineSpeed();
+    	double speed = getDrivelineVelocity();
     	
     	if(speed < Cals.k_DrivelineAutoShiftDownSpeed) {
     		return 1;
@@ -128,12 +128,22 @@ public class DrivelineSubsystem extends PIDSubsystem {
     	return drivelineRequestedGear;
     }
     /** <b>double getDrivelineSpeed()</b><br>
-     * 
-     * TODO: This needs calibration and scale factor
-     * @return The speed of the driveline in RPM
+     * getSpeed() returns ticks in 100ms
+     * We want this to return our ft/sec
+     * 7680 ticks per wheel rotation
+     * 12.57 inches/wheel rotation
+     * if speed returned 7680 then I would have gone one revolution in 100ms or 10 revolutions /sec
+     * 10 rev/sec = 125.7 inch/sec or 10.475 ft/sec
+     * TODO: This needs calibration and scale factor or set TalonSRX cnts per rev
+     * @return The speed of the driveline in ft/sec
      */
-    private double getDrivelineSpeed() {
-    	return ((m_leftMotCtrl_1.getEncVelocity() - m_rightMotCtrl_1.getEncVelocity())/2.0);
+    public double getDrivelineVelocity() {
+    	double leftVel = m_leftMotCtrl_1.getEncVelocity();
+    	double rightVel = m_rightMotCtrl_1.getEncVelocity();
+    	double vel = (leftVel - rightVel)/2.0;
+    	vel = vel * Cals.k_DrivelineVeltoFtPerSec_Scale;
+    	//vel = vel * 10/ Cals.k_DrivelineEncoder_CntPerWheelRev * Cals.k_DrivelineWheelCircumference_Inch/12.0;
+    	return vel;
     }
     /** <b>double getDrivelinePosition()</b><br>
      * This will return the current position of the robot in inches.<br>
@@ -142,12 +152,11 @@ public class DrivelineSubsystem extends PIDSubsystem {
      * @return The position of the driveline in inch
      */
     public double getDrivelinePosition() {
-    	if(m_drivelineCurrentGear == 1) {
-    		return m_leftMotCtrl_1.getEncPosition() * Cals.k_Driveline1stGear_InchPerCnt;
-    	}else {
-    		return m_leftMotCtrl_1.getEncPosition() * Cals.k_Driveline2ndGear_InchPerCnt;
-    	}
-    	
+    	double leftPosition = m_leftMotCtrl_1.getEncPosition() * Cals.k_DrivelineEncoder_InchPerCnt;
+    	double rightPosition = m_rightMotCtrl_1.getEncPosition() * Cals.k_DrivelineEncoder_InchPerCnt;
+    	return (leftPosition - rightPosition)/2.0;
+   		//return m_leftMotCtrl_1.getEncPosition() * Cals.k_DrivelineEncoder_InchPerCnt;
+
     }
     /**<b>initDrivelinePosition()</b><br>
      * Set a local vaiable to the current Driveline Position
@@ -182,6 +191,11 @@ public class DrivelineSubsystem extends PIDSubsystem {
      */
     public double getDrivelineAngleFromInitialization() {
     	return m_gyro.getAngle() - m_drivelineAutoInitAngle;
+    }
+    public double getDrivelineCurrent() {
+    	double leftAmps = m_leftMotCtrl_1.getOutputCurrent() + m_leftMotCtrl_2.getOutputCurrent();
+    	double rightAmps = m_rightMotCtrl_1.getOutputCurrent() + m_rightMotCtrl_2.getOutputCurrent();
+    	return (leftAmps + rightAmps)/2.0;
     }
     /**
      * This is used by autonomous/PID commands. The gear is set in the initialize of the command.
@@ -278,6 +292,5 @@ public class DrivelineSubsystem extends PIDSubsystem {
     	}else {
     		Drive(0.0,output);
     	}
-    	
     }
 }

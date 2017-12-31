@@ -65,6 +65,8 @@ public class Robot extends TimedRobot {
 //		}
 		SmartDashboard.putNumber("RobotPosition", driveline.getDrivelinePosition());
 		SmartDashboard.putNumber("RobotAngle", driveline.getDrivelineAngle());
+		SmartDashboard.putNumber("RobotVelocity", driveline.getDrivelineVelocity());
+		SmartDashboard.putNumber("DrivelineCurrent", driveline.getDrivelineCurrent());
 	}
 	@Override
 	public void disabledInit() {
