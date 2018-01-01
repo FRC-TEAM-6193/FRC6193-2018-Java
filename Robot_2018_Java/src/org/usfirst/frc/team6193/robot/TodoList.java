@@ -23,7 +23,7 @@ public class TodoList {
 	 * TODO: Decide if Vision is worth doing
 	 * TODO: Electronics panel wiring and mounting
 	 * TODO: Pneumatics for gearbox actuators
-	 * TODO:  
+	 * TODO: Set Deadband for drivetrain
 	 */
 
 }

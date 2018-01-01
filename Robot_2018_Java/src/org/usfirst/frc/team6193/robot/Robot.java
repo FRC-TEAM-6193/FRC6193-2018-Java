@@ -10,7 +10,6 @@ package org.usfirst.frc.team6193.robot;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6193.robot.commands.AutonomousCommandGroup;
@@ -43,6 +42,7 @@ public class Robot extends TimedRobot {
 		DIO_4 = new DigitalInput(4);
 		
 		oi = new OI();
+		m_acg = new AutonomousCommandGroup();
 		driveline = new DrivelineSubsystem();
 	}
 	@Override
@@ -66,11 +66,12 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("RobotPosition", driveline.getDrivelinePosition());
 		SmartDashboard.putNumber("RobotAngle", driveline.getDrivelineAngle());
 		SmartDashboard.putNumber("RobotVelocity", driveline.getDrivelineVelocity());
-		SmartDashboard.putNumber("DrivelineCurrent", driveline.getDrivelineCurrent());
+		SmartDashboard.putNumber("DrivelineTotalCurrent", driveline.getDrivelineCurrent());
+		SmartDashboard.putNumber("AutoIndex", m_acg.getAutoIndex());
 	}
 	@Override
 	public void disabledInit() {
-
+		m_acg.setAutonomousIndex();
 	}
 
 	@Override
@@ -80,7 +81,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		setPeriod(0.01);
-		m_acg = new AutonomousCommandGroup();
 		m_acg.selectAutonomousCommandGroup();
 		m_acg.start();
 	}
@@ -92,7 +92,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		
 		m_acg.cancel();
 		setPeriod(0.02);
 	}

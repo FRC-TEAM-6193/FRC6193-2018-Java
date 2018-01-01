@@ -95,10 +95,6 @@ public class DrivelineSubsystem extends PIDSubsystem {
     	}
     }
 
-    public int getCurrentGear() {
-    	return m_drivelineCurrentGear;
-    }
-
     private int getNewAutoShiftGear(double move, double rotate) {
     	double speed = getDrivelineVelocity();
     	
@@ -108,6 +104,10 @@ public class DrivelineSubsystem extends PIDSubsystem {
     		return 2;
     	}
     	return drivelineRequestedGear;
+    }
+
+    public int getCurrentGear() {
+    	return m_drivelineCurrentGear;
     }
     
     /** 
@@ -160,18 +160,10 @@ public class DrivelineSubsystem extends PIDSubsystem {
     	return (leftAmps + rightAmps)/2.0;
     }
 
-    public void setRotatePID() {
-    	getPIDController().setPID(Cals.k_Driveline_PID_ROTATE_P, Cals.k_Driveline_PID_ROTATE_I, Cals.k_Driveline_PID_ROTATE_D);
-    }
-    public void setDrivePID() {
-    	getPIDController().setPID(Cals.k_Driveline_PID_DRIVE_P, Cals.k_Driveline_PID_DRIVE_I, Cals.k_Driveline_PID_DRIVE_D);
-    }
-    public void setDrivePID(double p, double i, double d) {
-    	getPIDController().setPID(p, i, d);
-    }
-    public void setRotatePID(double p, double i, double d) {
-    	getPIDController().setPID(p, i, d);
-    }
+    public void setRotatePID() { getPIDController().setPID(Cals.k_Driveline_PID_ROTATE_P, Cals.k_Driveline_PID_ROTATE_I, Cals.k_Driveline_PID_ROTATE_D); }
+    public void setDrivePID() { getPIDController().setPID(Cals.k_Driveline_PID_DRIVE_P, Cals.k_Driveline_PID_DRIVE_I, Cals.k_Driveline_PID_DRIVE_D); }
+    public void setDrivePID(double p, double i, double d) {	getPIDController().setPID(p, i, d); }
+    public void setRotatePID(double p, double i, double d) { getPIDController().setPID(p, i, d); }
     /**
      * Initialize the default command for this subsystem.
      * When no other command requires this subsystem, this command will run.
