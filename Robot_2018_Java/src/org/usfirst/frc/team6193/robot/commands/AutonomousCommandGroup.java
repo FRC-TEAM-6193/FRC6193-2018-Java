@@ -1,24 +1,12 @@
 package org.usfirst.frc.team6193.robot.commands;
 
 import org.usfirst.frc.team6193.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- *
- */
 public class AutonomousCommandGroup extends CommandGroup {
 
 	private int m_autoIndex = 0;
-	/*
-	 * Comments:
-	 * 1. The addSequential methods we are using contains the timeout to cancel the command.
-	 * 2. This timeout is a GUESS that needs to be more accurate.
-	 * 3. How to make this more accurate
-	 *    1. Run the command a few times and create a interpolated tables that calculates the time based on distance and angle.
-	 *    	a. This is different data than our old inches per second table.
-	 *    2. Make a guess and hope for the best.
-	 */
+
     public AutonomousCommandGroup() {
     	    	
     }
@@ -26,16 +14,41 @@ public class AutonomousCommandGroup extends CommandGroup {
     public void selectAutonomousCommandGroup() {
     	switch(m_autoIndex) {
     	case 0:
-    		addSequential(new DrivelineDrivePIDCommand(100, 5, 1),2.4);
+    		//addSequential(new DrivelineDriveSDCommand(48, 0.1, 2),5);
     		
     		break;
     	case 1:
-    		
-    		addSequential(new DrivelineDriveSDCommand(100, 0.5, 2),2);
-    		addSequential(new DrivelineDelayCommand(0.25));
-    		
+    		addSequential(new DrivelineDriveSDCommand(48, 0.1, 2),10);
+    		break;
+    	case 2:
+    		addSequential(new DrivelineDriveSDCommand(48, 0.2, 2),10);
+    		break;
+    	case 3:
+    		addSequential(new DrivelineDriveSDCommand(48, 0.3, 2),10);
+    		break;
+    	case 4:
+    		addSequential(new DrivelineDriveSDCommand(48, 0.4, 2),10);
+    		break;
+    	case 5:
+    		addSequential(new DrivelineDriveSDCommand(48, 0.5, 2),10);
+    		break;
+    	case 6:
+    		addSequential(new DrivelineDriveSDCommand(48, 0.6, 2),10);
+    		break;
+    	case 7:
+    		addSequential(new DrivelineDriveSDCommand(48, 0.7, 2),10);
+    		break;
+    	case 8:
+    		addSequential(new DrivelineDriveSDCommand(48, 0.8, 2),10);
+    		break;
+    	case 9:
+    		addSequential(new DrivelineDriveSDCommand(48, 0.9, 2),10);
+    		break;
+    	case 10:
+    		addSequential(new DrivelineDriveSDCommand(48, 1.0, 2),10);
     		break;
     	}
+    	
     }
     public int getAutoIndex() {
     	return m_autoIndex;

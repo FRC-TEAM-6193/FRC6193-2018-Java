@@ -11,6 +11,7 @@ import org.usfirst.frc.team6193.robot.lib.TalonSRX_CAN;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -58,8 +59,10 @@ public class DrivelineSubsystem extends PIDSubsystem {
     	double move = OI.joystickXBOX.getRawAxis(2) - OI.joystickXBOX.getRawAxis(3);
     	double rotate = OI.joystickXBOX.getX();
     	selectGear(move,rotate);
-    	m_robotDrive.arcadeDrive(move, rotate);
-   		//robotDrive.curvatureDrive(move, rotate, true);
+    	if(RobotState.isOperatorControl() || RobotState.isTest()) {
+    		m_robotDrive.arcadeDrive(move, rotate);
+    		//robotDrive.curvatureDrive(move, rotate, true);
+    	}
     }
     
     public void driveAutonomous(double move, double rotate) {
