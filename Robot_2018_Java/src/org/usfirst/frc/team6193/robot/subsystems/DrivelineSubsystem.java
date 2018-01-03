@@ -6,7 +6,8 @@ import org.usfirst.frc.team6193.robot.Enums;
 import org.usfirst.frc.team6193.robot.OI;
 import org.usfirst.frc.team6193.robot.RobotMap;
 import org.usfirst.frc.team6193.robot.commands.DrivelineDefaultCommand;
-import org.usfirst.frc.team6193.robot.lib.TalonSRX_CAN;
+
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -30,10 +31,10 @@ public class DrivelineSubsystem extends PIDSubsystem {
 	private double m_drivelineAutoInitAngle = 0.0;
 	private double m_drivelineAutoInitPosition = 0;
 
-	private TalonSRX_CAN m_leftMotCtrl_1;
-	private TalonSRX_CAN m_leftMotCtrl_2;
-	private TalonSRX_CAN m_rightMotCtrl_1;
-	private TalonSRX_CAN m_rightMotCtrl_2;
+	private TalonSRX m_leftMotCtrl_1;
+	private TalonSRX m_leftMotCtrl_2;
+	private TalonSRX m_rightMotCtrl_1;
+	private TalonSRX m_rightMotCtrl_2;
 
 	private DoubleSolenoid m_drivelineShiftSolenoid;
 	private ADXRS450_Gyro m_gyro;
@@ -42,13 +43,13 @@ public class DrivelineSubsystem extends PIDSubsystem {
 
     public DrivelineSubsystem() {
     	super(1,0,0);
-    	m_leftMotCtrl_1 = new TalonSRX_CAN(RobotMap.k_DrivelineLeftMotCtrl_1_CANID);
-    	m_leftMotCtrl_2 = new TalonSRX_CAN(RobotMap.k_DrivelineLeftMotCtrl_2_CANID);
-    	m_rightMotCtrl_1 = new TalonSRX_CAN(RobotMap.k_DrivelineRightMotCtrl_1_CANID);
-    	m_rightMotCtrl_2 = new TalonSRX_CAN(RobotMap.k_DrivelineRightMotCtrl_2_CANID);
-    	m_leftMotCtrl_1.configEncoderCodesPerRev(250);
-    	SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(m_leftMotCtrl_1, m_leftMotCtrl_2);
-    	SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(m_rightMotCtrl_1, m_rightMotCtrl_2);
+    	m_leftMotCtrl_1 = new TalonSRX(RobotMap.k_DrivelineLeftMotCtrl_1_CANID);
+    	m_leftMotCtrl_2 = new TalonSRX(RobotMap.k_DrivelineLeftMotCtrl_2_CANID);
+    	m_rightMotCtrl_1 = new TalonSRX(RobotMap.k_DrivelineRightMotCtrl_1_CANID);
+    	m_rightMotCtrl_2 = new TalonSRX(RobotMap.k_DrivelineRightMotCtrl_2_CANID);
+    	//m_leftMotCtrl_1.configEncoderCodesPerRev(250);
+    	SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(m_leftMotCtrl_1.getWPILIB_SpeedController(), m_leftMotCtrl_2.getWPILIB_SpeedController());
+    	SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(m_rightMotCtrl_1.getWPILIB_SpeedController(), m_rightMotCtrl_2.getWPILIB_SpeedController());
     	m_drivelineShiftSolenoid = new DoubleSolenoid(RobotMap.k_DrivelineShiftSolenoidForwardPort, RobotMap.k_DrivelineShiftSolenoidForwardPort + 2);
     	m_gyro = new ADXRS450_Gyro();
     	
@@ -123,8 +124,8 @@ public class DrivelineSubsystem extends PIDSubsystem {
      * @return The speed of the driveline in ft/sec
      */
     public double getDrivelineVelocity() {
-    	double leftVel = m_leftMotCtrl_1.getEncVelocity();
-    	double rightVel = m_rightMotCtrl_1.getEncVelocity();
+    	double leftVel = m_leftMotCtrl_1.getSelectedSensorVelocity(0);
+    	double rightVel = m_rightMotCtrl_1.getSelectedSensorVelocity(0);
     	double vel = (leftVel - rightVel)/2.0;
     	vel = vel * Cals.k_DrivelineVeltoFtPerSec_Scale;
     	//vel = vel * 10/ Cals.k_DrivelineEncoder_CntPerWheelRev * Cals.k_DrivelineWheelCircumference_Inch/12.0;
@@ -140,8 +141,8 @@ public class DrivelineSubsystem extends PIDSubsystem {
     }
     
     public double getDrivelinePosition() {
-    	double leftPosition = m_leftMotCtrl_1.getEncPosition() * Cals.k_DrivelineEncoder_InchPerCnt;
-    	double rightPosition = m_rightMotCtrl_1.getEncPosition() * Cals.k_DrivelineEncoder_InchPerCnt;
+    	double leftPosition = m_leftMotCtrl_1.getSelectedSensorPosition(0) * Cals.k_DrivelineEncoder_InchPerCnt;
+    	double rightPosition = m_rightMotCtrl_1.getSelectedSensorPosition(0) * Cals.k_DrivelineEncoder_InchPerCnt;
     	return (leftPosition - rightPosition)/2.0;
     }
     
