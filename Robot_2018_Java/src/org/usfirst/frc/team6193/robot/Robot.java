@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6193.robot.commands.AutonomousCommandGroup;
 import org.usfirst.frc.team6193.robot.subsystems.DrivelineSubsystem;
+import org.usfirst.frc.team6193.robot.subsystems.ShooterSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,20 +31,24 @@ public class Robot extends TimedRobot {
 	public static DigitalInput DIO_4;
 	
 	public static DrivelineSubsystem driveline;
+	public static ShooterSubsystem shooter;
 	public static OI oi;
 
 	private AutonomousCommandGroup m_acg;
 
 	@Override
 	public void robotInit() {
-		DIO_1 = new DigitalInput(1);
-		DIO_2 = new DigitalInput(2);
-		DIO_3 = new DigitalInput(3);
-		DIO_4 = new DigitalInput(4);
+		DIO_1 = new DigitalInput(RobotMap.k_AutonomousDIO_1_Port);
+		DIO_2 = new DigitalInput(RobotMap.k_AutonomousDIO_2_Port);
+		DIO_3 = new DigitalInput(RobotMap.k_AutonomousDIO_3_Port);
+		DIO_4 = new DigitalInput(RobotMap.k_AutonomousDIO_4_Port);
 		
-		oi = new OI();
-		m_acg = new AutonomousCommandGroup();
 		driveline = new DrivelineSubsystem();
+		shooter = new ShooterSubsystem();
+		m_acg = new AutonomousCommandGroup();
+		oi = new OI();
+
+		
 	}
 	@Override
 	public void robotPeriodic() {
