@@ -1,31 +1,27 @@
 package org.usfirst.frc.team6193.robot.commands;
 
-import org.usfirst.frc.team6193.robot.Cals;
 import org.usfirst.frc.team6193.robot.Robot;
-import org.usfirst.frc.team6193.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ShooterSetSpeedCommand extends Command {
-
-
-    public ShooterSetSpeedCommand() {
+public class ShooterStepSpeedCommand extends Command {
+	double m_stepVelocity = 0.0;
+    public ShooterStepSpeedCommand(double step) {
         requires(Robot.shooter);
-
+        m_stepVelocity = step;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooter.isActive(!Robot.shooter.isActive());
-    	Robot.shooter.setVelocity();
+    	double setpoint = Robot.shooter.getSetPoint();
+    	Robot.shooter.setVelocity(setpoint + m_stepVelocity);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

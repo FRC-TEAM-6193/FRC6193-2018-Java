@@ -10,6 +10,7 @@ package org.usfirst.frc.team6193.robot;
 import org.usfirst.frc.team6193.robot.commands.DrivelineGearAutoShiftCommand;
 import org.usfirst.frc.team6193.robot.commands.DrivelineGearManualShiftCommand;
 import org.usfirst.frc.team6193.robot.commands.ShooterSetSpeedCommand;
+import org.usfirst.frc.team6193.robot.commands.ShooterStepSpeedCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -26,12 +27,15 @@ public class OI {
     public static Button buttonDrivelineManualHighGear = new JoystickButton(joystickXBOX, RobotMap.k_DrivelineGear_HIGH_ManualButtonNumber);
     public static Button buttonDrivelineAutoShiftSelect = new JoystickButton(joystickXBOX, RobotMap.k_DrivelineGear_AutoButtonNumber);
     public static Button buttonShooterSetDefaultVelocity = new JoystickButton(joystickXBOX, RobotMap.k_Shooter_DefaultVelocityButtonNumber);
-
+    public static Button buttonShooterStepPlusVelocity = new JoystickButton(joystickXBOX, RobotMap.k_Shooter_StepPlusButtonNumber);
+    public static Button buttonShooterStepMinusVelocity = new JoystickButton(joystickXBOX, RobotMap.k_Shooter_StepMinusButtonNumber);
     OI(){
     	buttonDrivelineManualLowGear.whenPressed(new DrivelineGearManualShiftCommand(1));
     	buttonDrivelineManualHighGear.whenPressed(new DrivelineGearManualShiftCommand(2));
     	buttonDrivelineAutoShiftSelect.whenPressed(new DrivelineGearAutoShiftCommand());
     	buttonShooterSetDefaultVelocity.whenPressed(new ShooterSetSpeedCommand());
+    	buttonShooterStepPlusVelocity.whenPressed(new ShooterStepSpeedCommand(Cals.k_ShooterStepVelocity));
+    	buttonShooterStepMinusVelocity.whenPressed(new ShooterStepSpeedCommand(-Cals.k_ShooterStepVelocity));
     }
 
 }

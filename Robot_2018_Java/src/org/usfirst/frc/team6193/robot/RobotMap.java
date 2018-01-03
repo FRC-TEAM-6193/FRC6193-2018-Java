@@ -39,9 +39,12 @@ public class RobotMap {
 	public static final int k_AutonomousDIO_4_Port = 4;
 	// END Autonomous
 	
+	
 	// Shooter
-	public static int k_ShooterMotCtrl_1_CANID = 4;
-	public static int k_Shooter_DefaultVelocityButtonNumber = 5;
+	public static final int k_ShooterMotCtrl_1_CANID = 4;
+	public static final int k_Shooter_DefaultVelocityButtonNumber = 5;
+	public static final int k_Shooter_StepPlusButtonNumber = 6;
+	public static final int k_Shooter_StepMinusButtonNumber = 7;
 	// END Shooter
 
 

@@ -29,6 +29,7 @@ public class Cals {
 	public static final double k_DrivelineAutoAngleCompensationFactor = -0.05;
 	
 	public static final double k_ShooterDefaultVelocity = 4000.0;
+	public static final double k_ShooterStepVelocity = 50;
 	public static double k_Driveline_PID_DRIVE_P = 1;
 	public static double k_Driveline_PID_DRIVE_I = 0;
 	public static double k_Driveline_PID_DRIVE_D = 0;
