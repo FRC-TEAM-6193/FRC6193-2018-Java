@@ -8,7 +8,7 @@ import org.usfirst.frc.team6193.robot.RobotMap;
 import org.usfirst.frc.team6193.robot.commands.DrivelineDefaultCommand;
 import org.usfirst.frc.team6193.robot.lib.DifferentialDrive6193;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -31,10 +31,10 @@ public class DrivelineSubsystem extends Subsystem {
 	private double m_drivelineAutoInitAngle = 0.0;
 	private double m_drivelineAutoInitPosition = 0;
 
-	private TalonSRX m_leftMotCtrl_1;
-	private TalonSRX m_leftMotCtrl_2;
-	private TalonSRX m_rightMotCtrl_1;
-	private TalonSRX m_rightMotCtrl_2;
+	private WPI_TalonSRX m_leftMotCtrl_1;
+	private WPI_TalonSRX m_leftMotCtrl_2;
+	private WPI_TalonSRX m_rightMotCtrl_1;
+	private WPI_TalonSRX m_rightMotCtrl_2;
 
 	private DoubleSolenoid m_drivelineShiftSolenoid;
 	private ADXRS450_Gyro m_gyro;
@@ -42,13 +42,13 @@ public class DrivelineSubsystem extends Subsystem {
 	private DifferentialDrive6193 m_robotDrive;
 
     public DrivelineSubsystem() {
-    	m_leftMotCtrl_1 = new TalonSRX(RobotMap.k_DrivelineLeftMotCtrl_1_CANID);
-    	m_leftMotCtrl_2 = new TalonSRX(RobotMap.k_DrivelineLeftMotCtrl_2_CANID);
-    	m_rightMotCtrl_1 = new TalonSRX(RobotMap.k_DrivelineRightMotCtrl_1_CANID);
-    	m_rightMotCtrl_2 = new TalonSRX(RobotMap.k_DrivelineRightMotCtrl_2_CANID);
+    	m_leftMotCtrl_1 = new WPI_TalonSRX(RobotMap.k_DrivelineLeftMotCtrl_1_CANID);
+    	m_leftMotCtrl_2 = new WPI_TalonSRX(RobotMap.k_DrivelineLeftMotCtrl_2_CANID);
+    	m_rightMotCtrl_1 = new WPI_TalonSRX(RobotMap.k_DrivelineRightMotCtrl_1_CANID);
+    	m_rightMotCtrl_2 = new WPI_TalonSRX(RobotMap.k_DrivelineRightMotCtrl_2_CANID);
     	//m_leftMotCtrl_1.configEncoderCodesPerRev(250);
-    	SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(m_leftMotCtrl_1.getWPILIB_SpeedController(), m_leftMotCtrl_2.getWPILIB_SpeedController());
-    	SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(m_rightMotCtrl_1.getWPILIB_SpeedController(), m_rightMotCtrl_2.getWPILIB_SpeedController());
+    	SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(m_leftMotCtrl_1, m_leftMotCtrl_2);
+    	SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(m_rightMotCtrl_1, m_rightMotCtrl_2);
     	m_drivelineShiftSolenoid = new DoubleSolenoid(RobotMap.k_DrivelineShiftSolenoidForwardPort, RobotMap.k_DrivelineShiftSolenoidForwardPort + 2);
     	m_gyro = new ADXRS450_Gyro();
     	
