@@ -48,7 +48,6 @@ public class AutonomousCommandGroup extends CommandGroup {
     		addSequential(new DrivelineDriveSDCommand(48, 1.0, 2),10);
     		break;
     	}
-    	
     }
     public int getAutoIndex() {
     	return m_autoIndex;

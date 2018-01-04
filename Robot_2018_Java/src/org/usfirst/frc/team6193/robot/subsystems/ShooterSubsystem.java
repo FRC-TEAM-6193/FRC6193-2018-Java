@@ -62,10 +62,11 @@ public class ShooterSubsystem extends Subsystem {
     }
     
     private double getError() {
-    	return m_setPoint - getVelocity();
+    	double error = m_setPoint - getVelocity();
+    	error = Math.abs(error) < Cals.k_ShooterErrorDeadband ? 0.0 : error;
+    	return error;
     }
     private double limit(double val) {
-
     	val = val > m_maxSpeed ? m_maxSpeed : val;
     	val = val < 0.0 && val < -m_maxSpeed ? -m_maxSpeed: val; 
     	return val;

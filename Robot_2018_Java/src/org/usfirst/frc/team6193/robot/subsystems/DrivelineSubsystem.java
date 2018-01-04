@@ -6,6 +6,7 @@ import org.usfirst.frc.team6193.robot.Enums;
 import org.usfirst.frc.team6193.robot.OI;
 import org.usfirst.frc.team6193.robot.RobotMap;
 import org.usfirst.frc.team6193.robot.commands.DrivelineDefaultCommand;
+import org.usfirst.frc.team6193.robot.lib.DifferentialDrive6193;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -16,7 +17,7 @@ import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
 
 public class DrivelineSubsystem extends Subsystem {
 
@@ -38,7 +39,7 @@ public class DrivelineSubsystem extends Subsystem {
 	private DoubleSolenoid m_drivelineShiftSolenoid;
 	private ADXRS450_Gyro m_gyro;
 	
-	private DifferentialDrive m_robotDrive;
+	private DifferentialDrive6193 m_robotDrive;
 
     public DrivelineSubsystem() {
     	m_leftMotCtrl_1 = new TalonSRX(RobotMap.k_DrivelineLeftMotCtrl_1_CANID);
@@ -51,7 +52,9 @@ public class DrivelineSubsystem extends Subsystem {
     	m_drivelineShiftSolenoid = new DoubleSolenoid(RobotMap.k_DrivelineShiftSolenoidForwardPort, RobotMap.k_DrivelineShiftSolenoidForwardPort + 2);
     	m_gyro = new ADXRS450_Gyro();
     	
-    	m_robotDrive = new DifferentialDrive(leftSpeedControllerGroup, rightSpeedControllerGroup);
+    	m_robotDrive = new DifferentialDrive6193(leftSpeedControllerGroup, rightSpeedControllerGroup);
+    	m_robotDrive.setDeadband(Cals.k_DrivelineDeadband);
+    	
     }
     
     public void driveDefault() {
