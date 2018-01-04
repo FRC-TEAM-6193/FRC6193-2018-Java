@@ -18,6 +18,9 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class DrivelineSubsystem extends Subsystem {
 
@@ -46,7 +49,23 @@ public class DrivelineSubsystem extends Subsystem {
     	m_leftMotCtrl_2 = new WPI_TalonSRX(RobotMap.k_DrivelineLeftMotCtrl_2_CANID);
     	m_rightMotCtrl_1 = new WPI_TalonSRX(RobotMap.k_DrivelineRightMotCtrl_1_CANID);
     	m_rightMotCtrl_2 = new WPI_TalonSRX(RobotMap.k_DrivelineRightMotCtrl_2_CANID);
-    	//m_leftMotCtrl_1.configEncoderCodesPerRev(250);
+
+    	m_leftMotCtrl_1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 100);
+    	m_leftMotCtrl_1.setNeutralMode(NeutralMode.Brake);
+    	m_leftMotCtrl_1.configOpenloopRamp(1, 0);
+    	
+    	m_leftMotCtrl_2.set(ControlMode.Follower, RobotMap.k_DrivelineLeftMotCtrl_1_CANID);
+    	m_leftMotCtrl_2.setNeutralMode(NeutralMode.Brake);
+    	m_leftMotCtrl_2.configOpenloopRamp(0, 0);
+    	
+    	m_rightMotCtrl_1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 100);
+    	m_rightMotCtrl_1.setNeutralMode(NeutralMode.Brake);
+    	m_rightMotCtrl_1.configOpenloopRamp(1, 0);
+    	
+    	m_rightMotCtrl_2.set(ControlMode.Follower, RobotMap.k_DrivelineRightMotCtrl_1_CANID);
+    	m_rightMotCtrl_2.setNeutralMode(NeutralMode.Brake);
+    	m_rightMotCtrl_2.configOpenloopRamp(0, 0);
+    	
     	SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(m_leftMotCtrl_1, m_leftMotCtrl_2);
     	SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(m_rightMotCtrl_1, m_rightMotCtrl_2);
     	m_drivelineShiftSolenoid = new DoubleSolenoid(RobotMap.k_DrivelineShiftSolenoidForwardPort, RobotMap.k_DrivelineShiftSolenoidForwardPort + 2);

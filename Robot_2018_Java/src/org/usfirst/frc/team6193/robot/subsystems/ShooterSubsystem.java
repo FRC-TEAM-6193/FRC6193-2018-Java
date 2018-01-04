@@ -3,7 +3,6 @@ package org.usfirst.frc.team6193.robot.subsystems;
 import org.usfirst.frc.team6193.robot.Cals;
 import org.usfirst.frc.team6193.robot.RobotMap;
 import org.usfirst.frc.team6193.robot.commands.ShooterDefaultCommand;
-import org.usfirst.frc.team6193.robot.lib.TalonSRX_CAN;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -12,18 +11,18 @@ import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
  */
 public class ShooterSubsystem extends Subsystem {
 
 	private TalonSRX m_shooterMotCtrl_1;
+	
 	private double m_setPoint = Cals.k_ShooterDefaultVelocity;
 	private double m_P_Gain = 0.05;
 	private double m_maxSpeed = 5380;
 	private boolean m_isActive = false;
     // Initialize your subsystem here
     public ShooterSubsystem() {
-    	m_shooterMotCtrl_1 = new TalonSRX_CAN(RobotMap.k_ShooterMotCtrl_1_CANID);
+    	m_shooterMotCtrl_1 = new TalonSRX(RobotMap.k_ShooterMotCtrl_1_CANID);
     	
     }
     public boolean isActive() {
