@@ -15,15 +15,14 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-public class DrivelineSubsystem extends PIDSubsystem {
+public class DrivelineSubsystem extends Subsystem {
 
 
 	public int drivelineRequestedGear = Enums.GEAR_HIGH;
 	public int drivelineShiftMode = Enums.SHIFT_MODE_MANUAL;
-	public int drivelinePIDMode = Enums.PID_MODE_DRIVE;
 	public double drivelineAutoCommandRampInitTime = 0.0;
 	
 	private int m_drivelineCurrentGear = Enums.GEAR_HIGH;
@@ -42,7 +41,6 @@ public class DrivelineSubsystem extends PIDSubsystem {
 	private DifferentialDrive m_robotDrive;
 
     public DrivelineSubsystem() {
-    	super(1,0,0);
     	m_leftMotCtrl_1 = new TalonSRX(RobotMap.k_DrivelineLeftMotCtrl_1_CANID);
     	m_leftMotCtrl_2 = new TalonSRX(RobotMap.k_DrivelineLeftMotCtrl_2_CANID);
     	m_rightMotCtrl_1 = new TalonSRX(RobotMap.k_DrivelineRightMotCtrl_1_CANID);
@@ -164,10 +162,6 @@ public class DrivelineSubsystem extends PIDSubsystem {
     	return (leftAmps + rightAmps)/2.0;
     }
 
-    public void setRotatePID() { getPIDController().setPID(Cals.k_Driveline_PID_ROTATE_P, Cals.k_Driveline_PID_ROTATE_I, Cals.k_Driveline_PID_ROTATE_D); }
-    public void setDrivePID() { getPIDController().setPID(Cals.k_Driveline_PID_DRIVE_P, Cals.k_Driveline_PID_DRIVE_I, Cals.k_Driveline_PID_DRIVE_D); }
-    public void setDrivePID(double p, double i, double d) {	getPIDController().setPID(p, i, d); }
-    public void setRotatePID(double p, double i, double d) { getPIDController().setPID(p, i, d); }
     /**
      * Initialize the default command for this subsystem.
      * When no other command requires this subsystem, this command will run.
@@ -175,30 +169,5 @@ public class DrivelineSubsystem extends PIDSubsystem {
     public void initDefaultCommand() {
         setDefaultCommand(new DrivelineDefaultCommand());
     }
-    /**
-     * The PIDController will call this method to get the sensor value used in the PID calculations.
-     * The values used are initialized at the start of the command.
-     * This is done to help with onTagert Min/Max values.
-     * 
-     */
-    protected double returnPIDInput() {
-    	if(drivelinePIDMode == Enums.PID_MODE_DRIVE) {
-    		return getDrivelinePositionFromInitialization();
-    	}else {
-    		return getDrivelineAngleFromInitialization();
-    	}
-    }
-    /**
-     * @param output 
-     * The output of the PID controller is done through this method.
-     * The PIDController will call this method after the calculations for the user to
-     * set a motor value.
-     */
-    protected void usePIDOutput(double output) {
-    	if(drivelinePIDMode == Enums.PID_MODE_DRIVE) {
-    		driveAutonomous(output,0.0);
-    	}else {
-    		driveAutonomous(0.0,output);
-    	}
-    }
+
 }

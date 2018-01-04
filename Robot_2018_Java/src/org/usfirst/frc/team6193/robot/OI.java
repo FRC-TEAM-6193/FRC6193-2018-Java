@@ -23,12 +23,18 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 
 	public static Joystick joystickXBOX = new Joystick(0);
-    public static Button buttonDrivelineManualLowGear = new JoystickButton(joystickXBOX, RobotMap.k_DrivelineGear_LOW_ManualButtonNumber);
-    public static Button buttonDrivelineManualHighGear = new JoystickButton(joystickXBOX, RobotMap.k_DrivelineGear_HIGH_ManualButtonNumber);
-    public static Button buttonDrivelineAutoShiftSelect = new JoystickButton(joystickXBOX, RobotMap.k_DrivelineGear_AutoButtonNumber);
-    public static Button buttonShooterSetDefaultVelocity = new JoystickButton(joystickXBOX, RobotMap.k_Shooter_DefaultVelocityButtonNumber);
-    public static Button buttonShooterStepPlusVelocity = new JoystickButton(joystickXBOX, RobotMap.k_Shooter_StepPlusButtonNumber);
-    public static Button buttonShooterStepMinusVelocity = new JoystickButton(joystickXBOX, RobotMap.k_Shooter_StepMinusButtonNumber);
+	public static Joystick joystickFlight = new Joystick(1);
+	
+	// XBOX Buttons
+    public static Button buttonDrivelineManualLowGear = new JoystickButton(joystickXBOX, 0);
+    public static Button buttonDrivelineManualHighGear = new JoystickButton(joystickXBOX, 1);
+    public static Button buttonDrivelineAutoShiftSelect = new JoystickButton(joystickXBOX, 2);
+    
+    // Flight stick Buttons
+    public static Button buttonShooterSetDefaultVelocity = new JoystickButton(joystickFlight, 5);
+    public static Button buttonShooterStepPlusVelocity = new JoystickButton(joystickFlight, 6);
+    public static Button buttonShooterStepMinusVelocity = new JoystickButton(joystickFlight, 7);
+    
     OI(){
     	buttonDrivelineManualLowGear.whenPressed(new DrivelineGearManualShiftCommand(1));
     	buttonDrivelineManualHighGear.whenPressed(new DrivelineGearManualShiftCommand(2));

@@ -20,19 +20,12 @@ public class RobotMap {
 	public static final int k_DrivelineLeftMotCtrl_2_CANID = 1;
 	public static final int k_DrivelineRightMotCtrl_1_CANID = 2;
 	public static final int k_DrivelineRightMotCtrl_2_CANID = 3;
-	
-	public static final int k_DrivelineGear_LOW_ManualButtonNumber = 0;
-	public static final int k_DrivelineGear_HIGH_ManualButtonNumber = 1;
-	public static final int k_DrivelineGear_AutoButtonNumber = 2;
-
 	public static final int k_DrivelineShiftSolenoidForwardPort = 1;
-	
 
 	// END Driveline 
 
 	
 	// Autonomous
-	
 	public static final int k_AutonomousDIO_1_Port = 1;
 	public static final int k_AutonomousDIO_2_Port = 2;
 	public static final int k_AutonomousDIO_3_Port = 3;
@@ -42,9 +35,7 @@ public class RobotMap {
 	
 	// Shooter
 	public static final int k_ShooterMotCtrl_1_CANID = 4;
-	public static final int k_Shooter_DefaultVelocityButtonNumber = 5;
-	public static final int k_Shooter_StepPlusButtonNumber = 6;
-	public static final int k_Shooter_StepMinusButtonNumber = 7;
+
 	// END Shooter
 
 
