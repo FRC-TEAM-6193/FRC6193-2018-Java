@@ -3,6 +3,7 @@ package org.usfirst.frc.team6193.robot.subsystems;
 import org.usfirst.frc.team6193.robot.Cals;
 import org.usfirst.frc.team6193.robot.RobotMap;
 import org.usfirst.frc.team6193.robot.commands.ShooterDefaultCommand;
+import org.usfirst.frc.team6193.robot.lib.MotorData;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -16,9 +17,10 @@ public class ShooterSubsystem extends Subsystem {
 
 	private TalonSRX m_shooterMotCtrl_1;
 	
+	private double m_gearboxRatio = 10.71;
 	private double m_setPoint = Cals.k_ShooterDefaultVelocity;
 	private double m_P_Gain = 0.05;
-	private double m_maxSpeed = 5380;
+	private double m_maxSpeed = MotorData.MiniCIM_RPM / m_gearboxRatio;
 	private boolean m_isActive = false;
     // Initialize your subsystem here
     public ShooterSubsystem() {
