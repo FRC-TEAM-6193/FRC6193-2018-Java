@@ -35,6 +35,7 @@ public class RobotMap {
 	
 	// Shooter
 	public static final int k_ShooterMotCtrl_1_CANID = 4;
+	public static final int k_ShooterTurretMotCtrl_1_CANID = 6;
 
 	// END Shooter
 

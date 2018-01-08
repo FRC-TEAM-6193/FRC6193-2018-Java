@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6193.robot.commands.AutonomousCommandGroup;
 import org.usfirst.frc.team6193.robot.subsystems.DrivelineSubsystem;
-import org.usfirst.frc.team6193.robot.subsystems.ShooterSubsystem;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
 	public static DigitalInput DIO_4;
 	
 	public static DrivelineSubsystem driveline;
-	public static ShooterSubsystem shooter;
+
 	public static OI oi;
 
 	private AutonomousCommandGroup m_acg;
@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
 		DIO_4 = new DigitalInput(RobotMap.k_AutonomousDIO_4_Port);
 		
 		driveline = new DrivelineSubsystem();
-		shooter = new ShooterSubsystem();
+
 		m_acg = new AutonomousCommandGroup();
 		oi = new OI();
 
