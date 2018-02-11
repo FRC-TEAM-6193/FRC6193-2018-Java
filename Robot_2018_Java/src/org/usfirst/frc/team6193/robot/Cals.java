@@ -25,10 +25,6 @@ public class Cals {
 	public static final double k_DrivelineEncoder_CntPerWheelRev = 7680.0;
 	public static final double k_DrivelineEncoder_InchPerCnt = 1.0/611.16;
 	
-	// Shooter calibrations
-	public static final double k_ShooterDefaultVelocity = 4000.0;
-	public static final double k_ShooterStepVelocity = 50;
-	public static final double k_ShooterErrorDeadband = 0.1;
 }
 	// Encoder is a Greyhill 256 Cnts/Rev. Quad encoder into TalonSRX means 1024 Cnts/Rev
 	// Encoder is on output shaft before 60:24 3rd stage

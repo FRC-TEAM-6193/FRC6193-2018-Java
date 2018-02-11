@@ -43,9 +43,16 @@ public class RobotMap {
 	// END Autonomous
 	
 	
+<<<<<<< HEAD
 	// Cube Stage
 	public static final int k_LiftRightMotCtrl_CANID = 6;
 	public static final int k_LiftLeftMotCtrl_CANID = 3;
+=======
+	// Shooter
+	public static final int k_ShooterMotCtrl_1_CANID = 4;
+	public static final int k_ShooterTurretMotCtrl_1_CANID = 6;
+
+>>>>>>> branch 'master' of https://github.com/FRC-TEAM-6193/FRC6193-2018-Java.git
 	// END Shooter
 	
 
