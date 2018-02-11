@@ -10,10 +10,7 @@ package org.usfirst.frc.team6193.robot;
 
 import org.usfirst.frc.team6193.robot.commands.DrivelineGearAutoShiftCommand;
 import org.usfirst.frc.team6193.robot.commands.DrivelineGearManualShiftCommand;
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/FRC-TEAM-6193/FRC6193-2018-Java.git
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -31,7 +28,7 @@ public class OI {
     public static Button buttonDrivelineManualLowGear = new JoystickButton(joystickXBOX, 1);
     public static Button buttonDrivelineManualHighGear = new JoystickButton(joystickXBOX, 4);
     public static Button buttonDrivelineAutoShiftSelect = new JoystickButton(joystickXBOX, 2);
-<<<<<<< HEAD
+
     // Flight Stick Buttons
     public static Button buttonSecondStageRaise = new JoystickButton(joystickFlight,8);
     public static Button buttonFirstStageRaise = new JoystickButton(joystickFlight,7);
@@ -41,21 +38,14 @@ public class OI {
     public static Button buttonFlightRampDown = new JoystickButton (joystickFlight,9);
     public static Button buttonFlightRampUp = new JoystickButton (joystickFlight,10);
     
-=======
->>>>>>> branch 'master' of https://github.com/FRC-TEAM-6193/FRC6193-2018-Java.git
-
-    
+ 
     OI(){
     	buttonDrivelineManualLowGear.whenPressed(new DrivelineGearManualShiftCommand(1));
     	buttonDrivelineManualHighGear.whenPressed(new DrivelineGearManualShiftCommand(2));
     	buttonDrivelineAutoShiftSelect.whenPressed(new DrivelineGearAutoShiftCommand());
-<<<<<<< HEAD
+
     	// Flight Controls
 
-    	
-=======
-
->>>>>>> branch 'master' of https://github.com/FRC-TEAM-6193/FRC6193-2018-Java.git
     }
 
 }

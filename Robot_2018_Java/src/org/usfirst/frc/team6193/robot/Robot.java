@@ -18,10 +18,7 @@ import org.usfirst.frc.team6193.robot.subsystems.LiftSubsystem;
 import org.usfirst.frc.team6193.robot.commands.AutonomousCommandGroup;
 import org.usfirst.frc.team6193.robot.subsystems.DrivelineSubsystem;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/FRC-TEAM-6193/FRC6193-2018-Java.git
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -55,15 +52,10 @@ public class Robot extends TimedRobot {
 		autonomousScaleOverride = new DigitalInput(RobotMap.k_AutonomousScale_DIO_Port);
 		liftSubsystem = new LiftSubsystem();
 		driveline = new DrivelineSubsystem();
-<<<<<<< HEAD
-=======
 
 		m_acg = new AutonomousCommandGroup();
 		oi = new OI();
->>>>>>> branch 'master' of https://github.com/FRC-TEAM-6193/FRC6193-2018-Java.git
 
-		oi = new OI();
-		
 		
 	}
 	/*
