@@ -117,9 +117,9 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 		String gameData = "";
 		// while loops are not used very often in embedded systems.
-		// The Timer will exit this while statement if 10 seconds have gone by. 
-		// We are assuming the getGameSpecificMessage will return a 0 length string if it does not have data.
-		while(gameData.length() > 2) {
+		// The Timer will exit this while statement if 10 seconds has gone by. 
+		// We are ASSUMING the getGameSpecificMessage will return a 0 length string if it does not have data.
+		while(gameData.length() < 2) {
 			// If we waited 10 seconds in the while loop looking for good data, then exit with our default to cross the line
 			if(Timer.getFPGATimestamp() - timeStart > 10.0) {
 				gameData = "xxx";
