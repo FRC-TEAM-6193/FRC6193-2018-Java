@@ -7,10 +7,9 @@
 
 package org.usfirst.frc.team6193.robot;
 
+
 import org.usfirst.frc.team6193.robot.commands.DrivelineGearAutoShiftCommand;
 import org.usfirst.frc.team6193.robot.commands.DrivelineGearManualShiftCommand;
-import org.usfirst.frc.team6193.robot.commands.ShooterSetSpeedCommand;
-import org.usfirst.frc.team6193.robot.commands.ShooterStepSpeedCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -21,27 +20,31 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-
 	public static Joystick joystickXBOX = new Joystick(0);
 	public static Joystick joystickFlight = new Joystick(1);
 	
 	// XBOX Buttons
-    public static Button buttonDrivelineManualLowGear = new JoystickButton(joystickXBOX, 0);
-    public static Button buttonDrivelineManualHighGear = new JoystickButton(joystickXBOX, 1);
+    public static Button buttonDrivelineManualLowGear = new JoystickButton(joystickXBOX, 1);
+    public static Button buttonDrivelineManualHighGear = new JoystickButton(joystickXBOX, 4);
     public static Button buttonDrivelineAutoShiftSelect = new JoystickButton(joystickXBOX, 2);
+    // Flight Stick Buttons
+    public static Button buttonSecondStageRaise = new JoystickButton(joystickFlight,8);
+    public static Button buttonFirstStageRaise = new JoystickButton(joystickFlight,7);
+    public static Button buttonCubeIntake = new JoystickButton (joystickFlight,11);
+    public static Button buttonCubeOuttake = new JoystickButton (joystickFlight,12);
+    public static Button buttonHoldSecondStage = new JoystickButton (joystickFlight,1);
+    public static Button buttonFlightRampDown = new JoystickButton (joystickFlight,9);
+    public static Button buttonFlightRampUp = new JoystickButton (joystickFlight,10);
     
-    // Flight stick Buttons
-    public static Button buttonShooterSetDefaultVelocity = new JoystickButton(joystickFlight, 5);
-    public static Button buttonShooterStepPlusVelocity = new JoystickButton(joystickFlight, 6);
-    public static Button buttonShooterStepMinusVelocity = new JoystickButton(joystickFlight, 7);
+
     
     OI(){
     	buttonDrivelineManualLowGear.whenPressed(new DrivelineGearManualShiftCommand(1));
     	buttonDrivelineManualHighGear.whenPressed(new DrivelineGearManualShiftCommand(2));
     	buttonDrivelineAutoShiftSelect.whenPressed(new DrivelineGearAutoShiftCommand());
-    	buttonShooterSetDefaultVelocity.whenPressed(new ShooterSetSpeedCommand());
-    	buttonShooterStepPlusVelocity.whenPressed(new ShooterStepSpeedCommand(Cals.k_ShooterStepVelocity));
-    	buttonShooterStepMinusVelocity.whenPressed(new ShooterStepSpeedCommand(-Cals.k_ShooterStepVelocity));
+    	// Flight Controls
+
+    	
     }
 
 }

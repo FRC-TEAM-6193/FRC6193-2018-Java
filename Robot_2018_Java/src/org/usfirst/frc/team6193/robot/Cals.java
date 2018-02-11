@@ -2,6 +2,7 @@ package org.usfirst.frc.team6193.robot;
 
 public class Cals {
 	
+	
 	// Stopping distance tables for driveline move and rotate commands
 	public static double[] k_StoppingAngle1stGear_Y_Inch = {0,0,0,0,0,0,0,0,0,0};
 	public static double[] k_StoppingAngle2ndGear_Y_Inch = {0,0,0,0,0,0,0,0,0,0};
@@ -16,7 +17,7 @@ public class Cals {
 	public static final double k_DrivelineAutoShiftUpSpeed = 3.5;
 	public static final double k_DrivelineShiftDelay = 0.5;
 	public static final double k_DrivelineAutoAngleCompensationFactor = -0.05;
-	public static final double k_DrivelineDeadband = 0.0;
+	public static final double k_DrivelineDeadband = -0.250;
 
 	// Driveline sensor calibrations
 	public static final double k_DrivelineVeltoFtPerSec_Scale = 0.001364;

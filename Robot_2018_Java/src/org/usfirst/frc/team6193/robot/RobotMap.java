@@ -16,27 +16,38 @@ package org.usfirst.frc.team6193.robot;
 public class RobotMap {
 	
 	// Driveline 
-	public static final int k_DrivelineLeftMotCtrl_1_CANID = 0;
-	public static final int k_DrivelineLeftMotCtrl_2_CANID = 1;
-	public static final int k_DrivelineRightMotCtrl_1_CANID = 2;
-	public static final int k_DrivelineRightMotCtrl_2_CANID = 3;
-	public static final int k_DrivelineShiftSolenoidForwardPort = 1;
+	public static final int k_DrivelineLeftMotCtrl_1_CANID = 12;
+	public static final int k_DrivelineLeftMotCtrl_2_CANID = 5;
+	public static final int k_DrivelineRightMotCtrl_1_CANID = 11;
+	public static final int k_DrivelineRightMotCtrl_2_CANID = 7;
+	public static final int k_DrivelineShiftSolenoidForwardPort = 0;
 
 	// END Driveline 
+	
+	
+	//PowerUp Commands
+	public static final int k_IntakeOuttakeRightMotCtrl_1 =1 ;
+	public static final int k_IntakeOutakeLeftMotCtrl_2 = 4;
+	public static final int k_RampMotCtrl_1 = 6;
+	public static final int k_StageOneMotCtrl_1 =7 ;
+	public static final int k_StageTwoMotCtrl_1 = 8;
+	//END PowerUp Commands
 
 	
 	// Autonomous
-	public static final int k_AutonomousDIO_1_Port = 1;
-	public static final int k_AutonomousDIO_2_Port = 2;
-	public static final int k_AutonomousDIO_3_Port = 3;
-	public static final int k_AutonomousDIO_4_Port = 4;
+	public static final int k_liftDownLimitSwitch_DIO_Port = 1;
+	public static final int k_liftUpLimitSwitch_DIO_Port = 2;
+	public static final int k_AutonomousFieldPlacementSide_Port = 3;
+	public static final int k_AutonomousSwitch_DIO_Port = 4;
+	public static final int k_AutonomousScale_DIO_Port = 5;
 	// END Autonomous
 	
 	
-	// Shooter
-	public static final int k_ShooterMotCtrl_1_CANID = 4;
-
+	// Cube Stage
+	public static final int k_LiftRightMotCtrl_CANID = 6;
+	public static final int k_LiftLeftMotCtrl_CANID = 3;
 	// END Shooter
+	
 
 
 }

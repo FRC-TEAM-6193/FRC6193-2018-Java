@@ -68,7 +68,9 @@ public class DrivelineSubsystem extends Subsystem {
     	
     	SpeedControllerGroup leftSpeedControllerGroup = new SpeedControllerGroup(m_leftMotCtrl_1, m_leftMotCtrl_2);
     	SpeedControllerGroup rightSpeedControllerGroup = new SpeedControllerGroup(m_rightMotCtrl_1, m_rightMotCtrl_2);
-    	m_drivelineShiftSolenoid = new DoubleSolenoid(RobotMap.k_DrivelineShiftSolenoidForwardPort, RobotMap.k_DrivelineShiftSolenoidForwardPort + 2);
+
+    	m_drivelineShiftSolenoid = new DoubleSolenoid(15,RobotMap.k_DrivelineShiftSolenoidForwardPort, RobotMap.k_DrivelineShiftSolenoidForwardPort + 1);
+
     	m_gyro = new ADXRS450_Gyro();
     	
     	m_robotDrive = new DifferentialDrive6193(leftSpeedControllerGroup, rightSpeedControllerGroup);
@@ -77,13 +79,13 @@ public class DrivelineSubsystem extends Subsystem {
     }
     
     public void driveDefault() {
-    	double move = OI.joystickXBOX.getRawAxis(2) - OI.joystickXBOX.getRawAxis(3);
+    	double move = OI.joystickXBOX.getRawAxis(3) - OI.joystickXBOX.getRawAxis(2);
     	double rotate = OI.joystickXBOX.getX();
     	selectGear(move,rotate);
-    	if(RobotState.isOperatorControl() || RobotState.isTest()) {
+    	//if(RobotState.isOperatorControl() || RobotState.isTest()) {
     		m_robotDrive.arcadeDrive(move, rotate);
-    		//robotDrive.curvatureDrive(move, rotate, true);
-    	}
+    		//m_robotDrive.curvatureDrive(move, rotate, true);
+    	//}
     }
     
     public void driveAutonomous(double move, double rotate) {
@@ -148,8 +150,9 @@ public class DrivelineSubsystem extends Subsystem {
     	double rightVel = m_rightMotCtrl_1.getSelectedSensorVelocity(0);
     	double vel = (leftVel - rightVel)/2.0;
     	vel = vel * Cals.k_DrivelineVeltoFtPerSec_Scale;
-    	//vel = vel * 10/ Cals.k_DrivelineEncoder_CntPerWheelRev * Cals.k_DrivelineWheelCircumference_Inch/12.0;
+//    	//vel = vel * 10/ Cals.k_DrivelineEncoder_CntPerWheelRev * Cals.k_DrivelineWheelCircumference_Inch/12.0;
     	return vel;
+//    	return 0.0;
     }
 
     public void initDrivelinePosition() {
@@ -159,7 +162,12 @@ public class DrivelineSubsystem extends Subsystem {
     public double getDrivelinePositionFromInitialization() {
     	return getDrivelinePosition() - m_drivelineAutoInitPosition;
     }
-    
+    public double getDrivelineLeftPosition() {
+    	return m_leftMotCtrl_1.getSelectedSensorPosition(0);
+    }
+    public double getDrivelineRightPosition() {
+    	return m_rightMotCtrl_1.getSelectedSensorPosition(0);
+    }
     public double getDrivelinePosition() {
     	double leftPosition = m_leftMotCtrl_1.getSelectedSensorPosition(0) * Cals.k_DrivelineEncoder_InchPerCnt;
     	double rightPosition = m_rightMotCtrl_1.getSelectedSensorPosition(0) * Cals.k_DrivelineEncoder_InchPerCnt;
