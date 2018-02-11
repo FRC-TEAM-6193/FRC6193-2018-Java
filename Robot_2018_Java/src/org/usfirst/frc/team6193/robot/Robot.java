@@ -41,9 +41,11 @@ public class Robot extends TimedRobot {
 	public static DrivelineSubsystem driveline;
 
 	public static OI oi;
-
+	private boolean m_autoStarted = false;
 	private AutonomousCommandGroup m_acg;
-	private double timeStart;
+	private double m_timeStart;
+	private String m_gameData;
+	
 	public void robotInit() {
 		liftDownLimitSwitch_DIO = new DigitalInput(RobotMap.k_liftDownLimitSwitch_DIO_Port);
 		liftUpLimitSwitch_DIO = new DigitalInput(RobotMap.k_liftUpLimitSwitch_DIO_Port);
@@ -105,31 +107,34 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		//setPeriod(0.01);
 		m_acg = new AutonomousCommandGroup();
-		timeStart = Timer.getFPGATimestamp();
-		
+		m_timeStart = Timer.getFPGATimestamp();
+		m_gameData = DriverStation.getInstance().getGameSpecificMessage();
 	}
 	/*
 	 * During Autonomous the LEDs should display the color of the alliance on the bottom 2/3rds of the LED strip.
-	 * The top 1/3rd of the LED strip should indicate the gear the robot is in. Green = 1st gear and Alliance color = 2nd gear
+	 * The top 1/3rd of the LED strip should indicate the gear the robot is in. Green = 2nd gear and Alliance color = 1st gear
 	 * 
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		String gameData = "";
+		
 		// while loops are not used very often in embedded systems.
 		// The Timer will exit this while statement if 10 seconds has gone by. 
-		// We are ASSUMING the getGameSpecificMessage will return a 0 length string if it does not have data.
-		while(gameData.length() < 2) {
-			// If we waited 10 seconds in the while loop looking for good data, then exit with our default to cross the line
-			if(Timer.getFPGATimestamp() - timeStart > 10.0) {
-				gameData = "xxx";
-				break;
+		// We are ASSUMING the getGameSpecificMessage will return a 0 length/null string if it does not have data.
+		if(!m_autoStarted) {
+			while(m_gameData.length() < 2) {
+				// If we waited 10 seconds in the while loop looking for good data, then exit with our default to cross the line
+				if(Timer.getFPGATimestamp() - m_timeStart > 10.0) {
+					m_gameData = "xxx";
+					
+					break;
+				}
+				m_gameData = DriverStation.getInstance().getGameSpecificMessage();
 			}
-			gameData = DriverStation.getInstance().getGameSpecificMessage();
+			m_autoStarted = true;
+			m_acg.selectAutonomousPlay(m_gameData, autonomousFieldPlacementSide.get(), autonomousSwitchOverride.get(), autonomousScaleOverride.get());
+			m_acg.start();
 		}
-		
-		m_acg.selectAutonomousPlay(gameData, autonomousFieldPlacementSide.get(), autonomousSwitchOverride.get(), autonomousScaleOverride.get());
-		m_acg.start();
 		Scheduler.getInstance().run();
 	}
 
