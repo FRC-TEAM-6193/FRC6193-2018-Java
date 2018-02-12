@@ -148,7 +148,7 @@ public class DrivelineSubsystem extends Subsystem {
     public double getDrivelineVelocity() {
     	double leftVel = m_leftMotCtrl_1.getSelectedSensorVelocity(0);
     	double rightVel = m_rightMotCtrl_1.getSelectedSensorVelocity(0);
-    	double vel = (leftVel - rightVel)/2.0;
+    	double vel = (rightVel - leftVel)/2.0;
     	vel = vel * Cals.k_DrivelineVeltoFtPerSec_Scale;
 //    	//vel = vel * 10/ Cals.k_DrivelineEncoder_CntPerWheelRev * Cals.k_DrivelineWheelCircumference_Inch/12.0;
     	return vel;
@@ -171,7 +171,7 @@ public class DrivelineSubsystem extends Subsystem {
     public double getDrivelinePosition() {
     	double leftPosition = m_leftMotCtrl_1.getSelectedSensorPosition(0) * Cals.k_DrivelineEncoder_InchPerCnt;
     	double rightPosition = m_rightMotCtrl_1.getSelectedSensorPosition(0) * Cals.k_DrivelineEncoder_InchPerCnt;
-    	return (leftPosition - rightPosition)/2.0;
+    	return (rightPosition - leftPosition)/2.0;
     }
     
     public void initDrivelineAngle() {

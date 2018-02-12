@@ -20,10 +20,10 @@ public class Cals {
 	public static final double k_DrivelineDeadband = -0.250;
 
 	// Driveline sensor calibrations
-	public static final double k_DrivelineVeltoFtPerSec_Scale = 0.001364;
+	public static final double k_DrivelineVeltoFtPerSec_Scale = 1;
 	public static final double k_DrivelineWheelCircumference_Inch = 12.57;
 	public static final double k_DrivelineEncoder_CntPerWheelRev = 7680.0;
-	public static final double k_DrivelineEncoder_InchPerCnt = 1.0/611.16;
+	public static final double k_DrivelineEncoder_InchPerCnt = 0.00243956043956;
 	
 }
 	// Encoder is a Greyhill 256 Cnts/Rev. Quad encoder into TalonSRX means 1024 Cnts/Rev

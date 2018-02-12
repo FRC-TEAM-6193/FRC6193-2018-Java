@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6193.robot.subsystems.LiftSubsystem;
@@ -30,6 +31,7 @@ import org.usfirst.frc.team6193.robot.subsystems.DrivelineSubsystem;
 public class Robot extends TimedRobot {
 
 	
+	public static final Subsystem CubeSubsystem = null;
 	public static DigitalInput liftDownLimitSwitch_DIO;
 	public static DigitalInput liftUpLimitSwitch_DIO;
 	public static DigitalInput autonomousFieldPlacementSide;  // Left = 0, Right = 1
@@ -109,6 +111,7 @@ public class Robot extends TimedRobot {
 		m_acg = new AutonomousCommandGroup();
 		m_timeStart = Timer.getFPGATimestamp();
 		m_gameData = DriverStation.getInstance().getGameSpecificMessage();
+		m_autoStarted= false;
 	}
 	/*
 	 * During Autonomous the LEDs should display the color of the alliance on the bottom 2/3rds of the LED strip.
@@ -126,7 +129,6 @@ public class Robot extends TimedRobot {
 				// If we waited 10 seconds in the while loop looking for good data, then exit with our default to cross the line
 				if(Timer.getFPGATimestamp() - m_timeStart > 10.0) {
 					m_gameData = "xxx";
-					
 					break;
 				}
 				m_gameData = DriverStation.getInstance().getGameSpecificMessage();

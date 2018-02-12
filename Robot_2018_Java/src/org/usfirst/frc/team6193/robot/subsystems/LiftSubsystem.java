@@ -39,7 +39,9 @@ public class LiftSubsystem extends Subsystem {
     	// Attempt at limiting the current.
     	// Lifting a 100lb weight took 10 amps total. This will need to be adjusted when we start the climbing tests.
     	if(Math.abs(getCurrent()) > 10) {
-    		move = 0.0;
+    		if (move > 0) {
+    			move = 0.0;
+    		}
     	}
     	m_LiftLeftMotCtrl.set(move);
     	m_LiftRightMotCtrl.set(-move);
